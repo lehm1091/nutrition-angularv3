@@ -1,0 +1,77 @@
+<div class="card ">
+
+    <div class="card-body">
+        <h4 class="card-title text-center"> <a routerLink="foods/" class="text-dark">Product List</a></h4>
+
+
+        <div class="container-fluid">
+
+
+
+
+
+            <table class="table table-bordered table-sm">
+                <tbody>
+                    <tr>
+                        <th class="text-left">Nutrients</th>
+                        <td class="text-center" *ngFor="let item of foods; let i=index">
+
+
+                            <span class="text-info font-weight-bold">
+                                {{item.name}}
+                            </span>
+
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <th class="text-left"></th>
+                        <td class="text-center" *ngFor="let item of foods; let i=index">
+
+
+                            <button type="button" class="btn btn-secondary btn-sm">[X]
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+
+                    <tr>
+
+                        <th class="text-left">Calories from fat</th>
+                        <td class="text-right" *ngFor="let item of foods; let i=index">
+                            <span class="">{{item.caloriesFromFat}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-left">Calories </th>
+                        <td class="text-right" *ngFor="let item of foods; let i=index">
+                            <span class="">{{item.calories}}</span>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+
+
+
+
+
+
+
+
+    </div>
+</div>

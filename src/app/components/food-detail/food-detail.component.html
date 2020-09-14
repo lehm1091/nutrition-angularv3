@@ -1,0 +1,216 @@
+<div class="card ">
+
+    <div class="card-body">
+        <h4 class="card-title text-center">{{currentFood.name}}</h4>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col text-right text-middle">Select serving size:</div>
+                <div class="dropdown col text-left">
+
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                       100 g
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row  ">
+
+
+                <div id="facts" class=" col text-center">
+
+                    <div class="table-bordered border-dark" style="max-width: 80%;">
+
+                        <div class="row mx-1 ">
+
+                            <div class=" col-md-12 font-weight-bold text-center border-dark border-bottom "
+                                style="font-size:x-large">NUTRITION FACTS</div>
+                        </div>
+
+                        <div class="row   mx-1 factSRowLarge">
+
+                            <div class="col-md-6 text-weight-bold  " style="font-size: large; ">Serving size </div>
+
+                            <div class="col-md-6 text-right font-weight-bold"> {{currentFood.servingSize}} g</div>
+
+
+
+
+
+                        </div>
+
+
+
+                        <div class="row   font-weight-bold mx-1 factSRowMedium">
+
+                            <div class="col-md-8 ">
+                                <div class="row large">
+                                    <div>Amount Per Serving</div>
+                                </div>
+                                <div class="row" style="font-size: xxx-large;">Calories</div>
+                            </div>
+
+                            <div class="col-md-4  px-0  align-self-end  text-right " style="font-size: xxx-large; ">
+                                {{currentFood.calories}}</div>
+
+                        </div>
+
+                        <div class="row border-bottom border-dark mx-1">
+
+                            <div class="col-md-12 text-right">% Daily Value *</div>
+                        </div>
+                        <div class="row border-bottom  border-dark mx-1">
+
+                            <div class="col-md-6"><b>Total Fat </b>{{currentFood.totalFat}}g</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.totalFat}}%</div>
+                        </div>
+
+                        <div class="row border-bottom border-dark mx-1">
+
+                            <div class="col-md-6"><b>Sodium </b>{{currentFood.sodium}}g</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.sodium}}%</div>
+                        </div>
+                        <div class="row border-bottom  border-dark mx-1">
+
+                            <div class="col-md-6"><b>Total Carbohydrate </b>{{currentFood.carbohydrate}}g</div>
+
+                            <div class="col-md-6 text-right "> {{currentFood.carbohydrate}}%</div>
+                        </div>
+                        <div class="row border-bottom  border-dark mx-1">
+
+                            <div class="col-md-6">Dietary FIber {{currentFood.fibre}}g</div>
+
+                            <div class="col-md-6 text-right border-dark"> {{currentFood.fibre}}%</div>
+                        </div>
+
+                        <div class="row border-bottom  border-dark mx-1">
+
+                            <div class="col-md-6">Sugar {{currentFood.totalSugar}}g</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.totalSugar}}%</div>
+                        </div>
+                        <div class="row   mx-1 factSRowLarge">
+
+                            <div class="col-md-6"><b>Protein </b>{{currentFood.protein}}g</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.protein}}%</div>
+
+
+                        </div>
+                        <div class="row border-bottom border-dark mx-1">
+
+                            <div class="col-md-6">Vitamin A {{currentFood.vitaminA}}mcg</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.vitaminA}}%</div>
+
+
+                        </div>
+
+                        <div class="row border-bottom  border-dark mx-1">
+
+                            <div class="col-md-6">Vitamin D {{currentFood.vitaminD}}mcg</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.vitaminD}}%</div>
+
+
+                        </div>
+                        <div class="row border-bottom  border-dark mx-1">
+
+                            <div class="col-md-6">Vitamin C {{currentFood.VitaminC}}mg</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.VitaminC}}%</div>
+
+
+                        </div>
+                        <div class="row border-bottom border-dark mx-1">
+
+                            <div class="col-md-6">Calcium {{currentFood.calcium}}mg</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.calcium}}%</div>
+
+
+                        </div>
+                        <div class="row border-bottom border-dark mx-1">
+
+                            <div class="col-md-6">Iron {{currentFood.iron}}mg</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.iron}}%</div>
+
+
+
+                        </div>
+                        <div class="row  factSRowMedium mx-1">
+
+                            <div class="col-md-6">Potossiun {{currentFood.potassium}}mg</div>
+
+                            <div class="col-md-6 text-right"> {{currentFood.potassium}}%</div>
+
+
+                        </div>
+
+
+
+                        <div class="row  mx-1">
+
+                            <div class="col-md text-align-justify">
+                                * The % Daily Value (DV) tells you how much a nutrient in a serving of food
+                                contribute to a daily
+                                diet. 2,000 calories a day is used for general nutrition advice.
+                            </div>
+
+
+
+
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="col">
+                    <div class="row">
+                        <div class="card border-0">
+                            <div class="card-body">
+
+                                <h6 class="card-subtitle mb-2 text-muted">Calories by source</h6>
+                                <p class="card-text">Nutrition calculator computes nutrition facts and analysis for the
+                                    whole meal. Search for the individual foods using the form above and add them to the
+                                    meal. Alternatively you can create a custom ingredient and then add it to the mea
+                                </p>
+                                <div class="text-center"><a href="#" class="card-link">Add to comparison</a></div>
+                                <div class="text-center"><a href="#" class="card-link">Add to meal</a></div>
+                                <div class="text-center"><a href="#" class="card-link">Download spreadsheet (CSV)</a>
+                                </div>
+                                <div class="chart-wrapper  ">
+
+
+                                    <canvas baseChart [data]="chart.pieChartData" [labels]="chart.pieChartLabels"
+                                        [chartType]="chart.pieChartType" [options]="chart.pieChartOptions"
+                                        [plugins]="chart.pieChartPlugins" [legend]="chart.pieChartLegend">
+                                    </canvas>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>

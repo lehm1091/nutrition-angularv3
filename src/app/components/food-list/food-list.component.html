@@ -1,0 +1,54 @@
+<div class="card ">
+
+    <div class="card-body">
+        <h4 class="card-title text-center"> <a routerLink="foods/" class="text-dark">Product List</a></h4>
+
+
+        <div class="container-fluid">
+
+            <div class="card  mb-3 mb-3">
+
+
+                <div class="  text-center card-body">
+                    <h6 class="text-muted col  ">Search by Category</h6>
+                    <a (click)="getFoodByCategory(item.name)" [ngClass]="{'text-secondary': category==item.name}"
+                        class="col " *ngFor="let item of categoriesList">{{item.name}}</a>
+                </div>
+
+
+            </div>
+
+
+
+
+
+            <div class=" card  ">
+
+
+                <div class="card-body ">
+                    <h6 class="card-subtitle  text-muted">{{title}}</h6>
+
+                    <div class="list-group list-group-flush ">
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center list-group-item-action "
+                             *ngFor="let item of foodList; let i=index">
+
+                            <span class="badge badge-primary badge-pill ">{{i+1}}</span>
+
+                            <span class="">{{item.name}}</span>
+                            <button type="button" class="btn btn-sm" (click)="addItemToComparsion(item.id)" *ngIf="limitReached()">Add to comparsion</button>
+                            <button type="button" class="btn btn-sm btn-secondary" routerLink="/foods/{{item.id}}">Details</button>
+
+
+                        </li>
+
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>

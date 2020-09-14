@@ -1,0 +1,32 @@
+.table-bordered{
+    border-width: medium;
+
+}
+.border-bottom{
+    border-color: black;
+
+}
+
+.col-md-6 {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.col-md-12 {
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+.factSRowLarge{
+    border-bottom:black solid 6px;
+}
+
+.factSRowMedium{
+    border-bottom:black solid 4px;
+}
+
+.factSRow{
+    border-bottom:black solid 2px;
+}
+
+
