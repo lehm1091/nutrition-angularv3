@@ -23,11 +23,11 @@ export class FoodService {
   }
 
   getByCategoryName(name: string): Observable<any> {
-    return this.http.get(`${baseURL}/categories/?name=${name}`);
+    return this.http.get(`${baseURL}/categories/${name}/foods`);
   }
 
   getAllByIds(ids): Observable<any> {
-    return this.http.get(`${baseURL}/foods/?id=${ids}`);
+    return this.http.get(`${baseURL}/foods/?ids=${ids}`);
   }
 
   getOneById(id): Observable<any> {

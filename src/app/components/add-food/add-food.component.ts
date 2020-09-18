@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 
 
@@ -16,6 +18,12 @@ import { Router } from '@angular/router';
 export class FoodHasCategories {
   foodId: number;
   categoryNames: string[];
+}
+
+export class CheckBoxCategory {
+  id: number;
+  names: string;
+  isChecked: boolean;
 }
 
 
@@ -33,9 +41,8 @@ export class AddFoodComponent implements OnInit {
   formIsValid = false;
   formIsSumited = false;
   food: Food = new Food();
-  categorieformGroup: FormGroup;
-  categoriesData: Category[];
-  private selectedCategories: FormArray;
+  checkBoxCategories: CheckBoxCategory[];
+  checkedIDs: number[] = []
 
   constructor(
     private formBuilder: FormBuilder,
@@ -43,89 +50,90 @@ export class AddFoodComponent implements OnInit {
     private categoriesService: CategoryService,
     private _router: Router) {
 
-    categoriesService.getAll()
-      .subscribe(data => {
-        this.categoriesData = data;
-
-      });
 
   }
 
   ngOnInit(): void {
-    this.categorieformGroup = this.formBuilder.group({
-      values: this.formBuilder.array([])
-    });
+    this.checkBoxCategories = [];
 
 
+    this.categoriesService.getAll().subscribe(
+      data => {
+
+        data.forEach(item => {
+          this.checkBoxCategories.push({
+            id: item.id,
+            names: item.name,
+            isChecked: false
+          })
+        });
+      });
+
+
+
+    console.log(this.checkBoxCategories)
   }
 
 
-  onChange(id, isChecked: boolean) {
-    this.selectedCategories = (this.categorieformGroup.controls.values as FormArray);
+  onChange() {
+    this.checkedIDs = [];
+    this.checkBoxCategories.forEach((value, index) => {
+      if (value.isChecked) {
+        this.checkedIDs.push(value.id);
+      }
+    });
 
-    if (isChecked) {
-      this.selectedCategories.push(new FormControl(id));
-      console.log("checked "+ id)
-    } else {
-      const index = this.selectedCategories.controls.findIndex(x => x.value === id);
-      this.selectedCategories.removeAt(index);
-      
-    }
 
-    if (this.selectedCategories.value.length > 0) {
-      this.formIsValid = true;
-    } else {
-      this.formIsValid = false;
-    }
+    console.log(this.checkedIDs);
+
+
   }
 
   saveFood(): void {
 
-    this.formIsSumited = true;
-
-    console.log(this.selectedCategories.value);
-    if (this.formIsValid) {
-
-      this.service.create(this.food).subscribe(
-        response => {
-
-          this.service.addCategories(response.id, this.selectedCategories.value
-          ).subscribe(
-            response2 => {
-              console.log(response2);
-             
-              Swal.fire({
-                title: 'OK',
-                text: 'Product sucessfully saved!',
-                icon: 'success',
-                showCancelButton: false,
-                confirmButtonText: 'Done!',
-              }).then; ((result) => {
-                console.log("value of button confirm " + result.value)
-                if (result.value) {
-
-                  console.log("dentro de valido");
-                }
-              });
-              this._router.navigateByUrl('/foods/' + response2.id);
-            },
-            error2 => {
-              console.log(error2);
-            }
-
-          );
+ 
 
 
-        },
-        error => {
-          console.log(error);
-        }
+    this.service.create(this.food).subscribe(
+      response => {
 
-      );
+        this.service.addCategories(response.id, this.checkedIDs
+        ).subscribe(
+          response2 => {
+            console.log(response2);
 
-    }
+            Swal.fire({
+              title: 'OK',
+              text: 'Product sucessfully saved!',
+              icon: 'success',
+              showCancelButton: false,
+              confirmButtonText: 'Done!',
+            }).then; ((result) => {
+              console.log("value of button confirm " + result.value)
+              if (result.value) {
+
+                console.log("dentro de valido");
+              }
+            });
+            this._router.navigateByUrl('/foods/' + response2.id);
+          },
+          error2 => {
+            console.log(error2);
+          }
+
+        );
 
 
+      },
+      error => {
+        console.log(error);
+      }
+
+    );
 
   }
+
+
+
+
 }
