@@ -1,9 +1,11 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FoodService } from 'src/app/services/food.service';
-import { Food } from '../add-food/add-food.component';
-import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { FoodService } from '../../service/food.service';
+import { Food } from '../../models/food.model';
+
+import { LocalStorageService } from '../../service/local-storage.service';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
 
 
 @Component({
@@ -12,20 +14,20 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
   styleUrls: ['./food-detail.component.css']
 })
 export class FoodDetailComponent implements OnInit, OnChanges {
-  currentFood: Food = new Food();
-  chart: FoodPieChart;
-
-
+  currentFood: Food;
+  faCheck = faCheck;
 
   constructor(
 
     private foodService: FoodService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private localStorageService: LocalStorageService
+    
 
   ) {
 
-    console.log(this.currentFood)
+
 
 
 
@@ -34,6 +36,7 @@ export class FoodDetailComponent implements OnInit, OnChanges {
   ngOnInit(): void {
 
     this.getFoodById(this.route.snapshot.paramMap.get('id'));
+    console.log(this.currentFood);
 
 
 
@@ -44,78 +47,45 @@ export class FoodDetailComponent implements OnInit, OnChanges {
   }
 
   getFoodById(id): void {
-    this.foodService.findById(id).subscribe(
+    this.foodService.getOneById(id).subscribe(
       response => {
         this.currentFood = response;
-        console.log(this.currentFood);
-        this.chart = new FoodPieChart(
-          Math.floor(this.percentageOfFats()),
-          Math.floor(this.percentageOfCarbs()),
-          Math.floor(this.percentageOfProtein())
-        );
-
       },
       error => {
         console.log(error);
       }
     );
+
   }
 
 
-  percentageOfFats(): number {
-    const fat = this.currentFood.totalFat * 9;
-    const carb = (this.currentFood.carbohydrate) * 4 + this.currentFood.fibre * 2;
-    const protein = this.currentFood.protein * 4
-    return 100 * (fat / (fat + protein + carb));
-  }
-  percentageOfCarbs(): number {
-    const fat = this.currentFood.totalFat * 9;
-    const carb = (this.currentFood.carbohydrate) * 4 + this.currentFood.fibre * 2;
-    const protein = this.currentFood.protein * 4
-    return 100 * (carb / (fat + protein + carb));
+  addItemToComparsion(id): void {
+    this.localStorageService.addId(id);
+    const dato = localStorage.getItem('listOfIds');
+    this.navigateToComparsion();
   }
 
-  percentageOfProtein(): number {
-    const fat = this.currentFood.totalFat * 9;
-    const carb = (this.currentFood.carbohydrate) * 4 + this.currentFood.fibre * 2;
-    const protein = this.currentFood.protein * 4
-    return 100 * (protein / (fat + protein + carb));
+  limitReached(): boolean {
+    return this.localStorageService.limitReached();
   }
+
+  private navigateToComparsion() {
+ 
+    this.router.navigate(['/compare/']);
+
+  }
+
+
+
+
 
 }
 
 
 
-export class FoodPieChart {
-  cfood: Food;
-
-  fats;
-  carbs;
-  protein;
-  public pieChartOptions: ChartOptions = {
-    responsive: true,
-  };
-
-  public pieChartLabels: Label[] = [[`Carbs ${this.carbs}%`], [`Fat ${this.fats}%`], `Protein ${this.protein}%`];
-  public pieChartData: SingleDataSet = [33, 33, 34];
-  public pieChartType: ChartType = 'pie';
-  public pieChartLegend = true;
-  public pieChartPlugins = [];
-
-  constructor(fats, carbs, protein) {
-    this.fats = fats;
-    this.carbs = carbs;
-    this.protein = protein;
-
-
-    this.pieChartData = [this.carbs, this.fats, this.protein];
-    this.pieChartLabels = [[`Carbs ${this.carbs}%`], [`Fat ${this.fats}%`], `Protein ${this.protein}%`];
-    console.log(this.pieChartData);
-    monkeyPatchChartJsTooltip();
-    monkeyPatchChartJsLegend();
-  }
 
 
 
 
-}
+
+

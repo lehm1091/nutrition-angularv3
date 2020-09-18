@@ -1,49 +1,38 @@
+<div class="container-sm container-sm mb-3  px-0">
 
 
+	<div>
+		<h5 class="text-center">Find Nutritional Value of a Product</h5>
+	</div>
+	<div class="input-group mx-0 px-0 ">
+		<div class="col p-0">
+
+			<form #form="ngForm" (ngSubmit)="submitTemplateForm(form.value)">
 
 
-<div> <h5 class="text-center">Find Nutritional Value of a Product</h5></div>
-<div class="input-group ">
+				<ng-autocomplete #ngAutoCompleteStatic [data]="foodList" name="searchValue" [(ngModel)]="searchValue"
+					[initialValue]="" [placeHolder]="placeholder" [searchKeyword]="keyword"
+					historyIdentifier="templateList" [historyHeading]="historyHeading" notFoundText="Not found"
+					[itemTemplate]="itemTemplateStatic" [notFoundTemplate]="notFoundTemplate">
+				</ng-autocomplete>
 
+				<ng-template #itemTemplateStatic let-item>
+					<a routerLink="/foods/{{item.id}}" [innerHTML]="item.name"></a>
+				</ng-template>
 
-    
-    <div class="col p-0">
-        
-        <form #form="ngForm" (ngSubmit)="submitTemplateForm(form.value)">
-           
-          
-                <ng-autocomplete #ngAutoCompleteStatic
-                                 [data]="foodList"
-                                 name="searchValue"
-                                 [(ngModel)]="searchValue"
-                                 [initialValue]=""
-                                 [placeHolder]="placeholder"
-                                 [searchKeyword]="keyword"
-                                 historyIdentifier="templateList"
-                                 [historyHeading]="historyHeading"
-                                 historyListMaxNumber="3"
-                                 notFoundText="Not found"
-                                 [itemTemplate]="itemTemplateStatic"
-                                 [notFoundTemplate]="notFoundTemplate">
-                </ng-autocomplete>
-      
-                <ng-template #itemTemplateStatic let-item>
-                  <a routerLink="/foods/{{item.id}}" [innerHTML]="item.name"></a>
-                </ng-template>
-    
-                <ng-template #notFoundTemplate let-notFound>
-                  <div [innerHTML]="notFound"></div>
-                </ng-template>
-            
-          </form>
-    </div>
+				<ng-template #notFoundTemplate let-notFound>
+					<div [innerHTML]="notFound"></div>
+				</ng-template>
 
-    <div class="input-group-append">
-        <button type="submit" class="btn btn-secondary " routerLink="/list-food/"
+			</form>
+		</div>
+
+		<div class="input-group-append">
+			<button type="submit" class="btn btn-secondary  " routerLink="/list-food/"
         style=" box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); border: none;  " >
-            Search
-        </button>
-    </div>
+            Search </button>
+		</div>
+	</div>
 
-    </div>
-
+	<hr class="w-99">
+</div>

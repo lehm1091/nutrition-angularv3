@@ -1,48 +1,50 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { HttpClientModule } from '@angular/common/http';
-
-import { ChartsModule } from 'ng2-charts';
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddFoodComponent } from './components/add-food/add-food.component';
-import { AddTestComponent } from './components/add-test/add-test.component';
-import { FoodListComponent } from './components/food-list/food-list.component';
-import { FoodDetailComponent } from './components/food-detail/food-detail.component';
 import { AutocompleteFoodComponent } from './components/autocomplete-food/autocomplete-food.component';
-import {StorageService } from './services/storage.service';
-
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { FoodService } from './services/food.service';
-import { CategoriesService } from './services/categories.service';
 import { FoodComparsionComponent } from './components/food-comparsion/food-comparsion.component';
+import { FoodDetailComponent } from './components/food-detail/food-detail.component';
+import { FoodListComponent } from './components/food-list/food-list.component';
+import {FoodService} from './service/food.service';
+import {CategoryService} from './service/category.service';
+import {LocalStorageService} from './service//local-storage.service';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { ChartsModule } from 'ng2-charts';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PiechartComponent } from './components/piechart/piechart.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     AddFoodComponent,
-    AddTestComponent,
-    FoodListComponent,
-    FoodDetailComponent,
     AutocompleteFoodComponent,
     FoodComparsionComponent,
-
+    FoodDetailComponent,
+    FoodListComponent,
+    PiechartComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
-    HttpClientModule,
     ReactiveFormsModule,
+    AppRoutingModule,
     ChartsModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    FontAwesomeModule
   ],
-  providers: [FoodService, CategoriesService, StorageService],
+  providers: [FoodService, CategoryService, LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

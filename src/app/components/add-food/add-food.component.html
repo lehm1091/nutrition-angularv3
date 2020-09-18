@@ -1,4 +1,4 @@
-<div class="card  " >
+<div class="card" >
  
     <div class="card-body">
         <h4 class="card-title text-center">New Product</h4>
@@ -38,7 +38,7 @@
                                     <input id="categories" name="categories" type="checkbox"
                                         [ngClass]="{'is-invalid': !formIsValid && formIsSumited }"
                                         class="form-check-input" required
-                                        (change)="onChange(item.name, $event.target.checked)" />
+                                        (change)="onChange(item.id,null)" />
 
                                     <label class="form-check-label" for="categories">
                                         {{ item.name }}

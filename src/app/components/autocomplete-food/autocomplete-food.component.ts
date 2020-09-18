@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodService } from 'src/app/services/food.service';
-import { Food } from 'src/app/components/add-food/add-food.component';
+import { FoodService } from '../../service/food.service';
+import { Food } from '../../models/food.model';
 
 @Component({
   selector: 'app-autocomplete-food',
@@ -28,11 +28,10 @@ export class AutocompleteFoodComponent implements OnInit {
 
 
   getFoodList(): void {
-    console.log("keyword is" + this.keyword);
+    console.log("keyword is " + this.keyword);
     this.foodService.getAll().subscribe(
       response => {
         this.foodList = response;
-        console.log(response);
       },
       error => {
         console.log(error);

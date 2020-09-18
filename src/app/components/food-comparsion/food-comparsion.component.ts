@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodService } from 'src/app/services/food.service';
-import { Food } from '../add-food/add-food.component';
+import { FoodService } from '../..//service/food.service';
+import { Food } from '../../models/food.model';
 import { ActivatedRoute } from '@angular/router';
+import { LocalStorageService } from '../../service/local-storage.service';
 
 @Component({
   selector: 'app-food-comparsion',
@@ -10,28 +11,73 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FoodComparsionComponent implements OnInit {
   foods: Food[];
+  canShowList: boolean;
+  ids: string[];
 
-  constructor(private foodService: FoodService, private route: ActivatedRoute) { }
+  constructor(
+    private foodService: FoodService,
+    private route: ActivatedRoute,
+    private localStorageService: LocalStorageService
+  ) { }
 
   ngOnInit(): void {
+    this.canShowList = false;
+
     //this.foodService.getAllByIds(this.storageService.getList()).subscribe(
 
-    console.log("ids desde url " + this.route.snapshot.paramMap.get('ids'))
-    let ids: string[] = this.route.snapshot.paramMap.getAll('ids');
 
 
-    this.foodService.getAllByIds(ids).subscribe(
-      response => {
-        this.foods = response;
-        console.log("por ids " + response);
-      },
-      error => {
-        console.log(error);
-      }
-    )
+    /* if (this.route.snapshot.paramMap.has('ids')) {
+       ids = this.route.snapshot.paramMap.getAll('ids');;
+     }
+     else {
+      
+     }*/
+
+
+    this.initItems();
 
 
   }
+
+
+  initItems() {
+    this.foods = [];
+    this.ids = this.localStorageService.getList();
+
+    if (this.ids.length > 0) {
+
+      this.foodService.getAllByIds(this.ids).subscribe(
+        response => {
+          this.foods = response;
+
+        },
+        error => {
+          console.log(error);
+        }
+      )
+      this.canShowList = true;
+    } else {
+      this.canShowList = false;
+    }
+  }
+
+  removeAllItems() {
+    this.localStorageService.clearList();
+    this.canShowList = false;
+  }
+
+  removeOneItem(id) {
+    this.localStorageService.removeId(id);
+    this.initItems();
+
+
+
+
+  }
+
+
+  
 
 
 

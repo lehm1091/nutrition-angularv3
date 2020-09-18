@@ -1,45 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodService } from 'src/app/services/food.service';
-import { CategoriesService } from 'src/app/services/categories.service';
+import { FoodService } from '../../service/food.service';
+import { CategoryService } from '../../service/category.service';
+
+import { Food } from '../../models/food.model';
+import { Category } from '../../models/category.model';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
+
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 
-export interface Categorie {
-  id: number;
-  name: string;
-}
-
-export class Food {
-  id: number;
-  name: string;
-  servingSize: number;
-  protein: number;
-  calories: number;
-  caloriesFromFat: number;
-  cholesterol: number;
-  carbohydrate: number;
-  totalSugar: number;
-  addedSugar: number;
-  fibre: number;
-  vitaminA: number;
-  vitaminD: number;
-  VitaminC: number;
-  calcium: number;
-  iron: number;
-  potassium: number;
-  sodium: number;
-  fat: number;
-  saturatedFat: number;
-  transFat: number;
-  totalFat: number;
-  public Food() {
-
-  }
 
 
-
-}
 
 
 export class FoodHasCategories {
@@ -63,10 +34,13 @@ export class AddFoodComponent implements OnInit {
   formIsSumited = false;
   food: Food = new Food();
   categorieformGroup: FormGroup;
-  categoriesData: Categorie[];
+  categoriesData: Category[];
   private selectedCategories: FormArray;
-  constructor(private formBuilder: FormBuilder, private service: FoodService,
-    private categoriesService: CategoriesService,
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private service: FoodService,
+    private categoriesService: CategoryService,
     private _router: Router) {
 
     categoriesService.getAll()
@@ -79,19 +53,23 @@ export class AddFoodComponent implements OnInit {
 
   ngOnInit(): void {
     this.categorieformGroup = this.formBuilder.group({
-      name: this.formBuilder.array([])
+      values: this.formBuilder.array([])
     });
+
+
   }
 
 
-  onChange(name: string, isChecked: boolean) {
-    this.selectedCategories = (this.categorieformGroup.controls.name as FormArray);
+  onChange(id, isChecked: boolean) {
+    this.selectedCategories = (this.categorieformGroup.controls.values as FormArray);
 
     if (isChecked) {
-      this.selectedCategories.push(new FormControl(name));
+      this.selectedCategories.push(new FormControl(id));
+      console.log("checked "+ id)
     } else {
-      const index = this.selectedCategories.controls.findIndex(x => x.value === name);
+      const index = this.selectedCategories.controls.findIndex(x => x.value === id);
       this.selectedCategories.removeAt(index);
+      
     }
 
     if (this.selectedCategories.value.length > 0) {
@@ -104,21 +82,18 @@ export class AddFoodComponent implements OnInit {
   saveFood(): void {
 
     this.formIsSumited = true;
+
+    console.log(this.selectedCategories.value);
     if (this.formIsValid) {
 
       this.service.create(this.food).subscribe(
         response => {
-          console.log(response);
 
-
-
-          this.service.addCategories({
-            foodId: response.id,
-            categoryNames: this.categorieformGroup.value.name
-          }).subscribe(
+          this.service.addCategories(response.id, this.selectedCategories.value
+          ).subscribe(
             response2 => {
-              console.log(response2)
-
+              console.log(response2);
+             
               Swal.fire({
                 title: 'OK',
                 text: 'Product sucessfully saved!',

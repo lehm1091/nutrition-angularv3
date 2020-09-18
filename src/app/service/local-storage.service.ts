@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
-import { stringify } from '@angular/compiler/src/util';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StorageService {
+export class LocalStorageService {
 
   constructor() { }
+
   addId(id): void {
     let ids: string[] = this.getList();
     ids.push(id);
     this.clearList();
     localStorage.setItem('listOfIds', JSON.stringify(ids));
-
     const retrievedData = localStorage.getItem('listOfIds');
     console.log(retrievedData);
-
 
   }
 
@@ -35,7 +33,7 @@ export class StorageService {
 
   private initList(): void {
     const retrievedData = localStorage.getItem('listOfIds');
-    if (!retrievedData) {
+    if (retrievedData === null) {
 
       localStorage.setItem('listOfIds', '');
       console.log("se creo el item en local storage");
@@ -53,7 +51,7 @@ export class StorageService {
     if (retrievedData) {
       ids = JSON.parse(retrievedData);
     } else {
-      console.log("ids" + "empty");
+
       ids = [];
     }
 
@@ -80,6 +78,6 @@ export class StorageService {
 
   }
 
- 
+
 
 }

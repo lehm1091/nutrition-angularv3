@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FoodService } from 'src/app/services/food.service';
-import { Food, Categorie } from 'src/app/components/add-food/add-food.component';
-import { CategoriesService } from 'src/app/services/categories.service';
+import { FoodService } from '../../service/food.service';
+import { Food } from '../../models/food.model';
+import { Category } from '../../models/category.model';
+import { CategoryService } from '../../service/category.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
-import { StorageService } from 'src/app/services/storage.service';
+import { LocalStorageService } from '../../service/local-storage.service';
 @Component({
   selector: 'app-food-list',
   templateUrl: './food-list.component.html',
@@ -11,16 +12,21 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class FoodListComponent implements OnInit, OnDestroy {
 
+
   foodList: Food[];
   name = '';
-  title = ''
-  categoriesList: Categorie[];
+  title = '';
+  categoriesList: Category[];
   category;
   mySubscription: any;
 
 
-  constructor(private foodService: FoodService, private categoriesService: CategoriesService, private route: ActivatedRoute, private router: Router,
-    private storageService: StorageService) {
+
+  constructor(
+    private foodService: FoodService,
+    private categoriesService: CategoryService, 
+    private route: ActivatedRoute, private router: Router,
+    private storageService: LocalStorageService) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
@@ -102,8 +108,8 @@ export class FoodListComponent implements OnInit, OnDestroy {
   }
 
   private navigateToComparsion() {
-    const ids: string[] = this.storageService.getList();
-    this.router.navigate(['/foods/compare/' + ids]);
+ 
+    this.router.navigate(['/compare/']);
 
   }
 
