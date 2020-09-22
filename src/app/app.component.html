@@ -1,31 +1,36 @@
-<div class="container-fluid m-0 p-0 bg-white" >
+<div class="container-fluid m-0 p-0 bg-white">
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 
 
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<a routerLink="/list-food" routerLinkActive="active" class="nav-link">List</a>
+				<a routerLink="/list-food" routerLinkActive="active" class="nav-link">
+					<fa-icon [icon]="faHome" class="mx-2 "></fa-icon>List
+				</a>
 			</li>
 			<li class="nav-item">
-				<a routerLink="/add-food" routerLinkActive="active" class="nav-link">New</a>
+				<a routerLink="/add-food" routerLinkActive="active" class="nav-link">
+					<fa-icon [icon]="faPlusSquare" class="mx-2 "></fa-icon>New
+				</a>
 			</li>
-			<li class="nav-item" routerLinkActive="active"
-				[ngClass]="{disabled: comparsionIds.length <=0  || comparsionIds===null}">
-				<a routerLink="/compare" class="nav-link">Compare</a>
+			<li class="nav-item" routerLinkActive="active">
+				<a routerLink="/compare" class="nav-link">
+					<fa-icon [icon]="faCharBar" class="mx-2 "></fa-icon>Compare
+				</a>
 			</li>
 
 		</ul>
 
 
 	</nav>
-	
 
-		<app-autocomplete-food></app-autocomplete-food>
 
-	
-		<router-outlet></router-outlet>
-	
-	
+	<app-autocomplete-food></app-autocomplete-food>
+
+
+	<router-outlet></router-outlet>
+
+
 
 
 
@@ -49,8 +54,9 @@
 				<div class="col-md-6 mt-md-0 mt-3">
 
 					<!-- Content -->
-					<h5 class="text-uppercase">Footer Content</h5>
-					<p>Here you can use rows and columns here to organize your footer content.</p>
+					<h5 class="text-uppercase">Nutrition App</h5>
+					<p class="text-dark " style="">
+						Food database and calorie counter</p>
 
 				</div>
 				<!-- Grid column -->
@@ -66,15 +72,6 @@
 					<ul class="list-unstyled">
 						<li>
 							<a href="#!">Link 1</a>
-						</li>
-						<li>
-							<a href="#!">Link 2</a>
-						</li>
-						<li>
-							<a href="#!">Link 3</a>
-						</li>
-						<li>
-							<a href="#!">Link 4</a>
 						</li>
 					</ul>
 

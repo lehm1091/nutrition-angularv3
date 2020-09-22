@@ -4,7 +4,8 @@ import { FoodService } from '../../service/food.service';
 import { Food } from '../../models/food.model';
 
 import { LocalStorageService } from '../../service/local-storage.service';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faChartBar, faCheck, faPenSquare, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
+import Swal from 'sweetalert2';
 
 
 
@@ -16,6 +17,10 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 export class FoodDetailComponent implements OnInit, OnChanges {
   currentFood: Food;
   faCheck = faCheck;
+  faPenSquare = faPenSquare;
+  faChartBar = faChartBar;
+  faSave = faSave;
+  faTrash = faTrash;
 
   constructor(
 
@@ -23,7 +28,7 @@ export class FoodDetailComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private router: Router,
     private localStorageService: LocalStorageService
-    
+
 
   ) {
 
@@ -70,22 +75,60 @@ export class FoodDetailComponent implements OnInit, OnChanges {
   }
 
   private navigateToComparsion() {
- 
+
     this.router.navigate(['/compare/']);
+
+  }
+
+  private navigateToList() {
+
+    this.router.navigate(['']);
+
+
+  }
+
+
+  deleteCurrentFoodDialog(): void {
+
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteCurrentFood();
+        this.navigateToList();
+        Swal.fire(
+          'Deleted!',
+          'Your file has been deleted.',
+          'success'
+        )
+
+
+      }
+    });
+
+
+  }
+
+
+  deleteCurrentFood() {
+    this.foodService.deleteOneById(this.currentFood.id).subscribe(
+      error => {
+        if (error) { console.log(error); }
+
+      }
+
+    )
 
   }
 
 
 
 
-
 }
-
-
-
-
-
-
-
-
 

@@ -1,288 +1,320 @@
-<div class="container-sm ">
-
-
-	<div class="text-dark">Base de datos de alimento y contador de calorías</div>
-	<h4 class="text-success">{{currentFood.name}}</h4>
-	<a (click)="addItemToComparsion(currentFood.id)" class="card-link">Add
-		to comparison</a>
-
+<div class="container-sm  px-0">
+	<div class="mx-1">
+		<div class="row  my-2 bg-white">
+			<div class="col-12 ">
+				<div class="py-2 " style="background-color:#f5f5f5">
 
 
 
+					<div id="header" class="mx-1">
 
+						<h4 class="text-success display-4">{{currentFood.name}}</h4>
 
-	<div class="row bg-white">
+						<div class="d-block">
+							<a (click)="addItemToComparsion(currentFood.id)" class="card-link">Add
+								to comparison
+								<fa-icon class="mx-1" [icon]="faChartBar">
+								</fa-icon></a>
 
-		<div class="col-md-6 col-sm-12 col-lg-4 ">
+							<a class="card-link" routerLink="/edit-food/{{currentFood.id}}" title="Edit">
+								Edit
+								<fa-icon class="mx-1" [icon]="faPenSquare">
+								</fa-icon>
 
-			<div class="py-3" style="background-color:#f5f5f5">
+							</a>
 
-				<div class="border-2 bg-white mx-auto" style="width: 300px;">
+							<a class="card-link" (click)="deleteCurrentFoodDialog()" title="Delete">
+								Delete
+								<fa-icon class="mx-1" [icon]="faTrash">
+								</fa-icon>
 
-					<div class="row border-b-1 mx-1 px-0">
-
-						<div class="font-weight-bold  " style="font-size:x-large, ">
-							NUTRITION FACTS
+							</a>
 						</div>
 					</div>
-
-					<div class="row mx-1 border-b-9">
-
-						<div class="col-9 text-weight-bold px-0  " style="font-size: large; ">
-							Serving size
-						</div>
-
-						<div class="col-3 px-0 text-right font-weight-bold">
-							{{currentFood.servingSize}} g
-						</div>
-					</div>
-					<div class="row mx-1 border-b-6 ">
-						<div class="col-12 px-0">Amount Per Serving</div>
-					</div>
-
-					<div class="row font-weight-bold mx-1  ">
-
-
-						<div class="col-8 px-0 px-0" style="font-size: x-large;">
-
-							Calories
-						</div>
-
-						<div class="col-4  px-0  align-self-end  text-right px-0 " style="font-size: x-large; ">
-							{{currentFood.calories}}</div>
-
-					</div>
-
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-12 text-right  px-0">% Daily Value *</div>
-					</div>
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6  px-0"><b>Total Fat </b>{{currentFood.totalFat}}g</div>
-
-						<div class="col-6  px-0 text-right"> {{currentFood.totalFat}}%</div>
-					</div>
-
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6  px-0"><b>Sodium </b>{{currentFood.sodium}}g</div>
-
-						<div class="col-6  px-0 text-right"> {{currentFood.sodium}}%</div>
-					</div>
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-8 px-0"><b>Total Carbohydrate </b>{{currentFood.carbohydrate}}g</div>
-
-						<div class="col-4 text-right px-0"> {{currentFood.carbohydrate}}%</div>
-					</div>
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6 px-0">Dietary FIber {{currentFood.fibre}}g</div>
-
-						<div class="col-6 px-0 text-right border-dark"> {{currentFood.fibre}}%</div>
-					</div>
-
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6 px-0">Sugar {{currentFood.totalSugar}}g</div>
-
-						<div class="col-6 px-0 text-right"> {{currentFood.totalSugar}}%</div>
-					</div>
-					<div class="row border-b-6 mx-1">
-
-						<div class="col-6 px-0"><b>Protein </b>{{currentFood.protein}}g</div>
-
-						<div class="col-6 px-0 text-right"> {{currentFood.protein}}%</div>
-
-
-					</div>
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6 px-0 ">Vitamin A {{currentFood.vitaminA}}mcg</div>
-
-						<div class="col-6 px-0 text-right"> {{currentFood.vitaminA}}%</div>
-
-
-					</div>
-
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6 px-0">Vitamin D {{currentFood.vitaminD}}mcg</div>
-
-						<div class="col-6 px-0 text-right"> {{currentFood.vitaminD}}%</div>
-
-
-					</div>
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6 px-0">Vitamin C {{currentFood.VitaminC}}mg</div>
-
-						<div class="col-6 px-0 text-right"> {{currentFood.VitaminC}}%</div>
-
-
-					</div>
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6 px-0 ">Calcium {{currentFood.calcium}}mg</div>
-
-						<div class="col-6 px-0 text-right"> {{currentFood.calcium}}%</div>
-
-
-					</div>
-					<div class="row border-b-1 mx-1">
-
-						<div class="col-6 px-0">Iron {{currentFood.iron}}mg</div>
-
-						<div class="col-6 px-0 text-right"> {{currentFood.iron}}%</div>
-
-
-
-					</div>
-					<div class="row  border-b-3 mx-1">
-
-						<div class="col-6 px-0">Potassiun {{currentFood.potassium}}mg</div>
-
-						<div class="col-6 text-right px-0"> {{currentFood.potassium}}%</div>
-
-
-					</div>
-
-
-
-					<div class="row  mx-1 ">
-
-						<div class="col-12 text-justify px-0">
-							* The % Daily Value (DV) tells you how much a nutrient in a serving of food
-							contribute to a daily
-							diet. 2,000 calories a day is used for general nutrition advice.
-						</div>
-
-
-
-
-					</div>
-
-
 
 				</div>
-
 			</div>
-
-
-			<div style="background-color:#f5f5f5">
-
-
-				<div class="border-2 bg-white  mx-auto" style="width: 300px;">
-
-					<h6 class="card-subtitle m-1 text-muted">Calories by source</h6>
-
-
-					<app-piechart class="mx-1 p-0" [currentFood]="currentFood"></app-piechart>
-
-
-				</div>
-
-
-
-
-
-
-			</div>
-
-
-
-
-		</div>
-
-		<div class="col-md-6 col-sm-12 col-lg-8 mx-0">
-
-			<div class="py-3" style="background-color:#f5f5f5">
-
-				<div class="text-dark font-weight-bold mx-1">Nutritional resume:</div>
-
-				<div class="d-flex flex-row justify-content-around">
-
-					<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
-
-						<div class="font-weight-bold">Cals</div>
-						<div>{{currentFood.calories}}</div>
-
-					</div>
-
-					<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
-
-						<div class="font-weight-bold">Fats</div>
-						<div>{{currentFood.totalFat}} g</div>
-
-					</div>
-					<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
-
-						<div class="font-weight-bold">Carbs</div>
-						<div>{{currentFood.carbohydrate}} g</div>
-
-					</div>
-					<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
-
-						<div class="font-weight-bold">Prot</div>
-						<div>{{currentFood.protein}} g</div>
-
-					</div>
-
-					
-				</div>
-				<div class="text-dark mx-1">There is {{currentFood.calories}} calories in
-					{{currentFood.servingSize}} g of {{currentFood.name}}:</div>
-
-			</div>
-
-			<div class="py-3">
-				<div class="container-fluid px-0">
-					<div class="row ">
-						<div class="col-12 ">
-							<h6 class="text-muted">Serving</h6>
-							<ul class="list-group list-group-flush ">
-								<li class="list-group-item list-group-item-action active py-0">
-									<fa-icon [icon]="faCheck" class="mx-2 "></fa-icon>100 gr
-								</li>
-								<li class="list-group-item list-group-item-action py-0">
-									<fa-icon [icon]="faCheck" class="mx-2 "></fa-icon>1 gr
-								</li>
-								<li class="list-group-item list-group-item-action py-0">
-									<fa-icon [icon]="faCheck" class="mx-2 p"></fa-icon>1 oz
-								</li>
-
-
-
-							</ul>
-						</div>
-					</div>
-				</div>
-
-
-			</div>
-
-			<div class=" my-3 bg-white">
-				<h6 class="card-subtitle mb-2 text-muted">Calories by source</h6>
-				<p class="card-text">Nutrition calculator computes nutrition facts and analysis for the
-					whole meal. Search for the individual foods using the form above and add them to the
-					meal. Alternatively you can create a custom ingredient and then add it to the mea
-				</p>
-
-				<div class="text-center"><a href="#" class="card-link">Add to meal</a></div>
-				<div class="text-center"><a href="#" class="card-link">Download spreadsheet (CSV)</a>
-				</div>
-
-
-			</div>
-
-
 		</div>
 
 
+		<div class="row bg-white">
+
+			<div class="col-md-4 col-sm-12 col-lg-4 ">
+
+				<div class="" style="background-color:#f5f5f5">
+
+					<div class="mx-1">
+						<div id="sumary">
+							<div class="text-dark font-weight-bold mx-1">
+								Nutrition summary:</div>
+
+							<div class="d-flex flex-row justify-content-around">
+
+								<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
+
+									<div class="font-weight-bold">Cals</div>
+									<div>{{currentFood.calories}}</div>
+
+								</div>
+
+								<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
+
+									<div class="font-weight-bold">Fats</div>
+									<div>{{currentFood.fat}} g</div>
+
+								</div>
+								<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
+
+									<div class="font-weight-bold">Carbs</div>
+									<div>{{currentFood.carbohydrate}} g</div>
+
+								</div>
+								<div class="bg-white border-2 text-center  " style="height: 60px; width: 70px;">
+
+									<div class="font-weight-bold">Prot</div>
+									<div>{{currentFood.protein}} g</div>
+
+								</div>
+
+
+							</div>
+							<div class="text-dark mx-1">There is {{currentFood.calories}} calories in
+								{{currentFood.servingSize}} g of {{currentFood.name}}:</div>
+
+
+
+						</div>
+					</div>
 
 
 
 
+				</div>
+
+				<div id=" serving" class="mx-1">
+					<div class="py-3">
+						<div class="container-fluid px-0">
+							<div class="row ">
+								<div class="col-12 ">
+									<h6 class="text-muted">Serving</h6>
+									<ul class="list-group list-group-flush ">
+										<li class="list-group-item list-group-item-action active py-0">
+											<fa-icon [icon]="faCheck" class="mx-2 "></fa-icon>100 gr
+										</li>
+										<li class="list-group-item list-group-item-action py-0">
+											<fa-icon [icon]="faCheck" class="mx-2 "></fa-icon>1 gr
+										</li>
+										<li class="list-group-item list-group-item-action py-0">
+											<fa-icon [icon]="faCheck" class="mx-2 p"></fa-icon>1 oz
+										</li>
+
+
+
+									</ul>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+				</div>
+				<div style="background-color:#f5f5f5">
+
+					<div id="facts" class="mx-1 py-2 my-1">
+
+						<div class="border-2 bg-white mx-auto" style="max-width: 300px;">
+
+							<div class="row border-b-1 mx-1 px-0">
+
+								<div class="font-weight-bold  " style="font-size:x-large, ">
+									NUTRITION FACTS
+								</div>
+							</div>
+
+							<div class="row mx-1 border-b-9">
+
+								<div class="col-9 text-weight-bold px-0  " style="font-size: large; ">
+									Serving size
+								</div>
+
+								<div class="col-3 px-0 text-right font-weight-bold">
+									{{currentFood.servingSize}} g
+								</div>
+							</div>
+							<div class="row mx-1 border-b-6 ">
+								<div class="col-12 px-0">Amount Per Serving</div>
+							</div>
+
+							<div class="row font-weight-bold mx-1  ">
+
+
+								<div class="col-8 px-0 px-0" style="font-size: x-large;">
+
+									Calories
+								</div>
+
+								<div class="col-4  px-0  align-self-end  text-right px-0 " style="font-size: x-large; ">
+									{{currentFood.calories}}</div>
+
+							</div>
+
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-12 text-right  px-0">% Daily Value *</div>
+							</div>
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6  px-0"><b>Total Fat </b>{{currentFood.fat}}g</div>
+
+								<div class="col-6  px-0 text-right"> {{currentFood.fat}}%</div>
+							</div>
+
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6  px-0"><b>Sodium </b>{{currentFood.sodium}}g</div>
+
+								<div class="col-6  px-0 text-right"> {{currentFood.sodium}}%</div>
+							</div>
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-10 px-0"><b>Total Carbohydrate </b>{{currentFood.carbohydrate}}g</div>
+
+								<div class="col-2 text-right px-0"> {{currentFood.carbohydrate}}%</div>
+							</div>
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6 px-0">Dietary Fiber {{currentFood.fiber}}g</div>
+
+								<div class="col-6 px-0 text-right border-dark"> {{currentFood.fiber}}%</div>
+							</div>
+
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6 px-0">Sugar {{currentFood.sugar}}g</div>
+
+								<div class="col-6 px-0 text-right"> {{currentFood.sugar}}%</div>
+							</div>
+							<div class="row border-b-6 mx-1">
+
+								<div class="col-6 px-0"><b>Protein </b>{{currentFood.protein}}g</div>
+
+								<div class="col-6 px-0 text-right"> {{currentFood.protein}}%</div>
+
+
+							</div>
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6 px-0 ">Vitamin A {{currentFood.vitaminA}}mcg</div>
+
+								<div class="col-6 px-0 text-right"> {{currentFood.vitaminA}}%</div>
+
+
+							</div>
+
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6 px-0">Vitamin D {{currentFood.vitaminD}}mcg</div>
+
+								<div class="col-6 px-0 text-right"> {{currentFood.vitaminD}}%</div>
+
+
+							</div>
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6 px-0">Vitamin C {{currentFood.vitaminC}}mg</div>
+
+								<div class="col-6 px-0 text-right"> {{currentFood.vitaminC}}%</div>
+
+
+							</div>
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6 px-0 ">Calcium {{currentFood.calcium}}mg</div>
+
+								<div class="col-6 px-0 text-right"> {{currentFood.calcium}}%</div>
+
+
+							</div>
+							<div class="row border-b-1 mx-1">
+
+								<div class="col-6 px-0">Iron {{currentFood.iron}}mg</div>
+
+								<div class="col-6 px-0 text-right"> {{currentFood.iron}}%</div>
+
+
+
+							</div>
+							<div class="row  border-b-3 mx-1">
+
+								<div class="col-6 px-0">Potassiun {{currentFood.potassium}}mg</div>
+
+								<div class="col-6 text-right px-0"> {{currentFood.potassium}}%</div>
+
+
+							</div>
+
+
+
+							<div class="row  mx-1 ">
+
+								<div class="col-12 text-justify px-0" style="font-size:xx-small">
+									* The % Daily Value (DV) tells you how much a nutrient in a serving of food
+									contribute to a daily
+									diet. 2,000 calories a day is used for general nutrition advice.
+								</div>
+
+
+
+
+							</div>
+
+						</div>
+
+
+
+
+
+
+
+
+
+					</div>
+
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-8 col-lg-5 mx-0">
+
+				<div class="" style="background-color:#f5f5f5">
+
+					<div id="pieChart" class="py-1">
+
+						<div class="border-2 bg-white mx-1" style="">
+							<app-piechart class="" [currentFood]="currentFood"></app-piechart>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+			<div class="col-md-4 col-sm-4 col-lg-3 mx-0">
+
+				<div class=" my-1 bg-white">
+					<div id="text" class="mx-1">
+						<h6 class="card-subtitle mb-2 text-muted">Calories by source</h6>
+						<p class="card-text">Nutrition App computes nutrition facts and analysis for the
+							whole food.
+
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+
 </div>

@@ -1,10 +1,7 @@
 <div class="container-sm container-sm mb-3  px-0">
 
 
-	<div>
-		<h5 class="text-center">Find Nutritional Value of a Product</h5>
-	</div>
-	<div class="input-group mx-0 px-0 ">
+	<div class="input-group mx-0 px-0 my-2">
 		<div class="col p-0">
 
 			<form #form="ngForm" (ngSubmit)="submitTemplateForm(form.value)">
@@ -28,11 +25,15 @@
 		</div>
 
 		<div class="input-group-append">
-			<button type="submit" class="btn btn-secondary  " routerLink="/list-food/"
-        style=" box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); border: none;  " >
-            Search </button>
+			<button title="Search" type="submit" class="btn btn-secondary  " routerLink="/list-food/"
+				style=" box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); border: none;  ">
+				<fa-icon [icon]="faSearch" class="mx-2 "></fa-icon>
+			</button>
 		</div>
 	</div>
+
+
+
 
 	<hr class="w-99">
 </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from './service/local-storage.service';
+import { faHome, faPlusSquare, faChartBar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,11 @@ import { LocalStorageService } from './service/local-storage.service';
 })
 export class AppComponent implements OnInit {
   title = 'nutrition-app-v2';
-  comparsionIds: string[] = ["1","2"];
+  comparsionIds: string[] = ["1", "2"];
+  faHome = faHome;
+  faPlusSquare = faPlusSquare;
+  faCharBar = faChartBar;
+
   constructor(private storageService: LocalStorageService) { }
 
   ngOnInit(): void {

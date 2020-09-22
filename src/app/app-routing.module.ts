@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'add-food', component: AddFoodComponent },
   { path: 'list-food', component: FoodListComponent },
   { path: 'foods/:id', component: FoodDetailComponent },
+  { path: 'edit-food/:id', component: AddFoodComponent },
   { path: 'foods/category/:category', component: FoodListComponent },
   { path: 'compare', component: FoodComparsionComponent },
   { path: 'test', component: AutocompleteFoodComponent },
@@ -22,5 +23,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { 
+export class AppRoutingModule {
 }

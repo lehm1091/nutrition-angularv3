@@ -20,6 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PiechartComponent } from './components/piechart/piechart.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BarChartComponent } from './components/bar-chart/bar-chart.component';
+import { RdiCalculatorComponent } from './components/rdi-calculator/rdi-calculator.component';
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FoodComparsionComponent,
     FoodDetailComponent,
     FoodListComponent,
-    PiechartComponent
+    PiechartComponent,
+    BarChartComponent,
+    RdiCalculatorComponent
   ],
   imports: [
     BrowserModule,

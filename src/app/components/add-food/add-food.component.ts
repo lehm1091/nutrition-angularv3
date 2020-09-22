@@ -7,9 +7,8 @@ import { Category } from '../../models/category.model';
 import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 
 import Swal from 'sweetalert2'
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 
 
@@ -36,7 +35,7 @@ export class CheckBoxCategory {
 export class AddFoodComponent implements OnInit {
 
 
-
+  editing = false;
   id = 0;
   formIsValid = false;
   formIsSumited = false;
@@ -48,12 +47,40 @@ export class AddFoodComponent implements OnInit {
     private formBuilder: FormBuilder,
     private service: FoodService,
     private categoriesService: CategoryService,
-    private _router: Router) {
+    private _router: Router,
+    private route: ActivatedRoute,) {
 
 
   }
 
   ngOnInit(): void {
+
+
+    if (this.route.snapshot.paramMap.has('id')) {
+      this.id = Number(this.route.snapshot.paramMap.get('id'));
+      this.editing = true;
+
+      this.service.getOneById(this.id).subscribe(
+        data => {
+
+          this.food = data;
+
+
+        },
+        error => {
+          console.log(error);
+        }
+
+      );
+
+
+
+
+    }
+    else {
+      this.editing = false;
+
+    }
     this.checkBoxCategories = [];
 
 
@@ -91,7 +118,7 @@ export class AddFoodComponent implements OnInit {
 
   saveFood(): void {
 
- 
+
 
 
     this.service.create(this.food).subscribe(

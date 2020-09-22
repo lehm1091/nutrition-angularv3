@@ -1,180 +1,277 @@
-<div class="card">
+<div class="container-sm px-1">
 
-    <div class="card-body">
-        <h4 class="card-title text-center">New Product</h4>
-        <div class="container-fluid">
+    <div class="mx-1">
 
-            <div class="form-group row">
-                <label class="col-md-3 col-form-label" for="name">Name</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="name" [(ngModel)]="food.name" required minlength="3"
-                        #name="ngModel" name="name" [ngClass]="{'is-invalid': !this.name.valid}">
+        <h4 class="text-success">New Product</h4>
 
+    <div class="bg-white">
 
-                    <small *ngIf="name.invalid " class="invalid-feedback">
-                        <script>
-
-                        </script>
-                        <div *ngIf="name.errors.required">
-                            Name is required.
-                        </div>
-                        <div *ngIf="name.errors.minlength">
-                            Name must be atleast 3 characters long.
-                        </div>
-                    </small>
-
-                </div>
-            </div>
-
-            <div class="form-group row ">
-                <label class="col-sm-3 col-form-label" for="name">Categories</label>
-                <div class="col-sm-9">
-
-                    <div class="form-group">
-
-                        <div class="form-check" *ngFor="let item of checkBoxCategories">
-
-                            <input id="categories" name="categories" type="checkbox"
-                                [ngClass]="{'is-invalid': checkedIDs.length ===0  }"
-                                class="form-check-input" required [(ngModel)]="item.isChecked" (change)="onChange()"
-                                >
-
-                            <label class="form-check-label" for="categories">
-                                {{ item.names }}
-                            </label>
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm " for="name">Name</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="name" [(ngModel)]="food.name" required minlength="3"
+                    #name="ngModel" name="name" [ngClass]="{'is-invalid': !this.name.valid}">
 
 
-                        </div>
-                        <small *ngIf="checkedIDs.length ===0 " style="color:#dc3545;">Select atleast one
-                            value.</small>
+                <small *ngIf="name.invalid " class="invalid-feedback">
+                    <script>
 
-
+                    </script>
+                    <div *ngIf="name.errors.required">
+                        Name is required.
                     </div>
-
-                </div>
-
-            </div>
-
-
-            <div class="form-group row ">
-                <label class="col-md-3" for="servingSize">Serving size</label>
-                <div class="col-md-9">
-                    <input type="text" class="form-control" id="servingSize" [(ngModel)]="food.servingSize "
-                        name="servingSize">
-                </div>
-            </div>
-
-
-
-
-            <div class="form-group row">
-
-                <label class="col-md-3" for="calories">Calories</label>
-
-                <div class="input-group col-md-9">
-                    <input type="text" class="form-control" id="calories" required #calories="ngModel"
-                        [(ngModel)]="food.calories" name="calories"
-                        [ngClass]="{ 'is-invalid': formIsSumited && calories.errors }">
-                    <div class="input-group-append">
-                        <span class="input-group-text">kcal</span>
+                    <div *ngIf="name.errors.minlength">
+                        Name must be atleast 3 characters long.
                     </div>
-                    <div *ngIf="calories.invalid " class="invalid-feedback">
-                        <span *ngIf="calories.errors.required">Calories value is required</span>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-md-3" for="caloriesFromFat">Calories from fat</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="caloriesFromFat" [(ngModel)]="food.caloriesFromFat"
-                        name="caloriesFromFat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">kcal</span>
-                    </div>
-                </div>
+                </small>
 
             </div>
-
-            <div class="form-group row">
-                <label class="col-md-3" for="protein">Protein</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="protein" [(ngModel)]="food.protein" name="protein">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label class="col-md-3" for="fat">Fat</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="fat" [(ngModel)]="food.fat" name="fat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-md-3" for="transFat">Trans Fat</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="transFat" [(ngModel)]="food.transFat" name="transFat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label class="col-md-3" for="totalFat">Total Fat</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="totalFat" [(ngModel)]="food.totalFat" name="totalFat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-md-3" for="carbohydrate">Carbohydrate</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="carbohydrate" [(ngModel)]="food.carbohydrate"
-                        name="carbohydrate">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-md-3" for="fibre">Fibre</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="fibre" [(ngModel)]="food.fibre" name="fibre">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class="col-md-3" for="totalSugar">Total Sugar</label>
-                <div class="col-md-9 input-group">
-                    <input type="text" class="form-control" id="totalSugar" [(ngModel)]="food.totalSugar"
-                        name="totalSugar">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <button (click)="saveFood()" class="btn btn-success">Submit</button>
         </div>
 
+        <div class="form-group row ">
+            <label class=" col-md-4  col-label col-label-sm" for="categories">Categories</label>
+            <div class="col-md-8">
+
+                <div class="form-group">
+
+                    <div class="form-check" *ngFor="let item of checkBoxCategories">
+
+                        <input id="categories" name="categories" type="checkbox"
+                            [ngClass]="{'is-invalid': checkedIDs.length ===0  }" class="form-check-input" required
+                            [(ngModel)]="item.isChecked" (change)="onChange()">
+
+                        <label class="form-check-label" for="categories">
+                            {{ item.names }}
+                        </label>
+
+
+                    </div>
+                    <small *ngIf="checkedIDs.length ===0 " style="color:#dc3545;">Select atleast one
+                        value.</small>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="form-group row ">
+            <label class="col-md-4  col-label col-label-sm " for="servingSize">Serving size</label>
+            <div class=" col-md-8 input-group-sm input-group-sm">
+                <input type="text" class="form-control" id="servingSize" [(ngModel)]="food.servingSize "
+                    name="servingSize">
+            </div>
+        </div>
+
+
+
+
+        <div class="form-group row">
+
+            <label class=" col-md-4  col-label col-label-sm" for="calories">Calories</label>
+
+            <div class="input-group  col-md-8 input-group-sm">
+                <input type="text" class="form-control" id="calories" required #calories="ngModel"
+                    [(ngModel)]="food.calories" name="calories"
+                    [ngClass]="{ 'is-invalid': formIsSumited && calories.errors }">
+                <div class="input-group-append">
+                    <span class="input-group-text">kcal</span>
+                </div>
+                <div *ngIf="calories.invalid " class="invalid-feedback">
+                    <span *ngIf="calories.errors.required">Calories value is required</span>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="protein">Protein</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="protein" [(ngModel)]="food.protein" name="protein">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="fat">Fat</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="fat" [(ngModel)]="food.fat" name="fat">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="transFat">Trans Fat</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="transFat" [(ngModel)]="food.transFat" name="transFat">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="saturatedFat">Saturated Fat</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="saturatedFat" [(ngModel)]="food.saturatedFat"
+                    name="saturatedFat">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="polyFat">Polyunsaturated Fat</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="polyFat" [(ngModel)]="food.polyunsaturatedFat"
+                    name="polyFat">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="monoFat">Monounsaturated Fat</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="monoFat" [(ngModel)]="food.monounsaturatedFat"
+                    name="monoFat">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="carbohydrate">Carbohydrate</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="carbohydrate" [(ngModel)]="food.carbohydrate"
+                    name="carbohydrate">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="fiber">Fiber</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="fiber" [(ngModel)]="food.fiber" name="fiber">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="totalSugar">Sugar</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="totalSugar" [(ngModel)]="food.sugar" name="totalSugar">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="addedSugar">Added Sugar</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="addedSugar" [(ngModel)]="food.addedSugar" name="addedSugar">
+                <div class="input-group-append">
+                    <span class="input-group-text">g</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="sodium">Sodiumn</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="sodium" [(ngModel)]="food.sodium" name="sodium">
+                <div class="input-group-append">
+                    <span class="input-group-text">mg</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="potassium">Potassium</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="potassium" [(ngModel)]="food.potassium" name="potassium">
+                <div class="input-group-append">
+                    <span class="input-group-text">mg</span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="vitaminD">Vitamin D</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="vitaminD" [(ngModel)]="food.vitaminD" name="vitaminD">
+                <div class="input-group-append">
+                    <span class="input-group-text">mcg</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="vitaminA">Vitamin A</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="vitaminA" [(ngModel)]="food.vitaminA" name="vitaminA">
+                <div class="input-group-append">
+                    <span class="input-group-text">mcg</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="vitaminC">Vitamin C</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="vitaminC" [(ngModel)]="food.vitaminC" name="vitaminC">
+                <div class="input-group-append">
+                    <span class="input-group-text">mcg</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="calcium">Calcium</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="calcium" [(ngModel)]="food.calcium" name="calcium">
+                <div class="input-group-append">
+                    <span class="input-group-text">mg</span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class=" col-md-4  col-label col-label-sm" for="iron">Iron</label>
+            <div class=" col-md-8 input-group-sm input-group">
+                <input type="text" class="form-control" id="iron" [(ngModel)]="food.iron" name="iron">
+                <div class="input-group-append">
+                    <span class="input-group-text">mg</span>
+                </div>
+            </div>
+        </div>
+        <button (click)="saveFood()" class="btn btn-success">Save</button>
     </div>
+
+
+
+
+    </div>
+
+
+
+    
 
 
 

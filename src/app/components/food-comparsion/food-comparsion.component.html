@@ -1,82 +1,12 @@
-<div class="card ">
+<div class="container-sm  px-0">
+    <div class="mx-1">
 
-
-    <div class="card-body">
-
-        <h4 class="card-title text-center">Comparsion List</h4>
-
-
-        <div class="container-fluid col">
-            <div *ngIf="!canShowList" class="row">
-                <h5>No products found for comparsion</h5>
-            </div>
-            <div *ngIf="canShowList" class="row">
-                <table class="table table-bordered table-sm">
-                    <tbody>
-                        <tr>
-                            <th class="text-left">Nutrients</th>
-                            <td class="text-center" *ngFor="let item of foods; let i=index">
-
-
-                                <span class="text-info font-weight-bold">
-                                    {{item.name}}
-                                </span>
-
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th class="text-left"></th>
-                            <td class="text-center" *ngFor="let item of foods; let i=index">
-
-
-                                <button type="button" (click)="removeOneItem(item.id)"
-                                    class="btn btn-secondary btn-sm">[X]
-                                </button>
-
-                            </td>
-
-                        </tr>
-
-
-                        <tr>
-
-                            <th class="text-left">Calories from fat</th>
-                            <td class="text-right" *ngFor="let item of foods; let i=index">
-                                <span class="">{{item.caloriesFromFat}}</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="text-left">Calories </th>
-                            <td class="text-right" *ngFor="let item of foods; let i=index">
-                                <span class="">{{item.calories}}</span>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="row">
-                <div class="mr-2">
-                    <button routerLink="/list-food" class="btn btn-sm btn-success ">Add more</button>
-                </div>
-
-                <div class="">
-                    <button (click)="removeAllItems()" class="btn btn-sm btn-secondary " *ngIf="canShowList">Remove
-                        All</button>
+        <div class="row  my-2 bg-white">
+            <div class="col-12 mx-0 p-0 ">
+                <div id="header" class="mx-1">
+                    <p class="text-success display-4">Comparing products</p>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
 
         </div>
 
@@ -84,8 +14,304 @@
 
 
 
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12 p-0 bg-white ">
+                <div class="m-1 align-center" style="">
+                    <div class="" style="background-color:#f5f5f5">
+
+                        <div class="py-1 mx-1">
+                            <div *ngIf="!canShowList" class="">
+                                <h5>No products found for comparsion</h5>
+                            </div>
+                            <div *ngIf="canShowList" class="">
+
+                                <table class="table table-sm border-left bg-white ">
+
+                                    <thead class="bg-secondary text-white ">
+                                        <tr>
+                                            <th class="text-left">Nutrients</th>
+                                            <th class="text-center" *ngFor="let item of foods; let i=index">
+
+                                                <div class="row">
+                                                    <div class="col-md-8 col-sm-12 order-sm-2 order-md-1"> <a
+                                                            class="text-warning "
+                                                            routerLink="/foods/{{item.id}}">{{item.name}}</a></div>
+                                                    <div class="col-md-4 col-sm-12 text-right order-sm-1 order-md-2">
+                                                        <a class="text-white" (click)="removeOneItem(item.id)">
+                                                            <fa-icon [icon]="faTimes" class=""></fa-icon>
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+
+                                            </th>
+                                        </tr>
 
 
 
+                                    </thead>
+
+                                    <tbody>
+
+
+
+
+                                        <tr>
+                                            <td class="text-left">Calories </td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.calories,'calories')}">
+                                                <span class="">{{item.calories}}</span>
+
+
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-left">Serving Size </td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.calories,'calories')}">
+                                                <span class="">{{item.servingSize}}</span>
+
+
+                                            </td>
+                                        </tr>
+
+                                        <tr class="bg-light text-dark font-weight-bold">
+                                            <td colspan="100%">Vitamins</td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left">Vitamin A</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.vitaminA}} mcg</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left">Vitamin D</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.vitaminD}} mcg</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left">Vitamin C</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.vitaminC}} mg</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="bg-light text-dark font-weight-bold">
+                                            <td colspan="100%">Minerals</td>
+                                        </tr>
+
+
+                                        <tr>
+
+                                            <td class="text-left">Calcium</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.calcium}} mg</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left">Iron</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.iron}} mg</span>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+
+                                            <td class="text-left">Potassium</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.potassium}} mg</span>
+                                            </td>
+                                        </tr>
+
+
+
+                                        <tr class="bg-light text-dark font-weight-bold">
+                                            <td colspan="100%">Proteins</td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left ">Protein</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.protein}} g</span>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class="bg-light text-dark font-weight-bold">
+                                            <td colspan="100%">Fats</td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left ">Fat</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.fat}} g</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left ">Saturated Fat</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.saturatedFat}} g</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-left ">Monounsaturated Fat</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.monounsaturatedFat}} g</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-left ">Polyunsaturated Fat</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                                <span class="">{{item.polyunsaturatedFat}} g</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="bg-light text-dark font-weight-bold">
+                                            <td colspan="100%">Carbohydrates</td>
+                                        </tr>
+
+
+                                        <tr>
+
+
+                                            <td class="text-left">Added Sugar</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.fat,'fat')}">
+                                                <span class="">{{item.addedSugar}} g</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+
+                                            <td class="text-left">Carbohydatre</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.fat,'fat')}">
+                                                <span class="">{{item.carbohydrate}} g</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left">Fiber</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.carbohydrate,'carbohydrate')}">
+                                                <span class="">{{item.fiber}} g</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+
+                                            <td class="text-left">Sugar</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.carbohydrate,'carbohydrate')}">
+                                                <span class="">{{item.sugar}} g</span>
+                                            </td>
+                                        </tr>
+
+
+
+                                        <tr>
+
+                                            <td class="text-left">Fiber</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.fiber,'fiber')}">
+                                                <span class="">{{item.fiber}} g</span>
+                                            </td>
+                                        </tr>
+
+                                        <tr class="bg-light text-dark font-weight-bold">
+                                            <td colspan="100%">Sterols</td>
+                                        </tr>
+
+                                        <tr>
+
+                                            <td class="text-left">cholesterol</td>
+                                            <td class="text-right" *ngFor="let item of foods; let i=index"
+                                                [ngClass]="{'font-weight-bold text-danger': isMax(item.fiber,'fiber')}">
+                                                <span class="">{{item.cholesterol}} g</span>
+                                            </td>
+                                        </tr>
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="">
+                                <div class="">
+                                    <button routerLink="/list-food" class="btn btn-sm btn-success mr-2">Add
+                                        more</button>
+
+                                    <button (click)="removeAllItems()" class="btn btn-sm btn-secondary "
+                                        *ngIf="canShowList">Remove
+                                        All</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+            <div class="col-md-6 col-sm-12 p-0 bg-white ">
+                <div class="m-1">
+
+                    <div class="" style="background-color:#f5f5f5">
+
+                        <div id="pieChart" class="py-1">
+
+                            <div class="border-2 bg-white mx-1" style="">
+                                <h6 class="card-subtitle m-1 text-muted">Calories by Source</h6>
+                                <app-bar-chart class="mx-1 p-0" [foods]="foods"></app-bar-chart>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
     </div>
+
 </div>

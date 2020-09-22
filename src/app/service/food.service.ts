@@ -34,6 +34,11 @@ export class FoodService {
     return this.http.get(`${baseURL}/foods/${id}`);
   }
 
+  deleteOneById(id): Observable<any> {
+    return this.http.delete(`${baseURL}/foods/${id}`);
+  }
+
+
 
   create(data): Observable<any> {
     return this.http.post(`${baseURL}/foods`, data);

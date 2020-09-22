@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, ChartsModule } from 'ng2-charts';
 import { Food } from '../../models/food.model';
 
 @Component({
@@ -13,38 +13,25 @@ export class PiechartComponent implements OnInit {
   @Input()
   currentFood: Food;
 
-  fats = 0;
-  carbs = 0;
-  protein = 0;
-
-  ngOnInit(): void {
-
-    this.fats = this.percentageOfFats();
-    this.protein = this.percentageOfProtein();
-    this.carbs = this.percentageOfCarbs()
-    console.log(this.currentFood.id);
-
-
-    this.pieChartType = 'pie';
-    this.pieChartLegend = true;
-    this.fats = Math.floor(this.percentageOfFats());
-    this.carbs = Math.floor(this.percentageOfCarbs());
-    Math.floor(this.percentageOfProtein());
-    this.pieChartData = [this.carbs, this.fats, this.protein];
-    this.pieChartLabels = [[`Carbs ${this.carbs}%`], [`Fat ${this.fats}%`], `Protein ${this.protein}%`];
-    monkeyPatchChartJsTooltip();
-    monkeyPatchChartJsLegend();
-  }
-
-
-
-
-
   public pieChartOptions: ChartOptions = {
     responsive: true,
     legend: {
       position: 'left',
+      
     },
+    plugins: {
+      datalabels: {
+        color: 'white',
+        display: false,
+        font: {
+          weight: 'bold'
+        },
+
+        formatter: ((value: any) => value + ' %')
+
+
+      }
+    }
   };
 
   public pieChartLabels: Label[] = [];
@@ -54,34 +41,40 @@ export class PiechartComponent implements OnInit {
   public pieChartPlugins = [];
   public pieChartColors = [
     {
-      backgroundColor: ['rgb(75, 184, 154)', 'rgb(188, 95, 84)', 'rgb(228, 177, 1)'],
+      backgroundColor: ['rgb(254, 145, 27)', 'rgb(0, 170, 159)', 'rgb(136, 100, 148)', 'rgb(251, 206, 0)']
     },
   ];
+
+  fats = 0;
+  carbs = 0;
+  protein = 0;
+  fiber = 0;
 
   constructor() {
 
   }
-
-
-  percentageOfFats(): number {
-    const fat = this.currentFood.totalFat * 9;
-    const carb = (this.currentFood.carbohydrate) * 4 + this.currentFood.fibre * 2;
-    const protein = this.currentFood.protein * 4;
-    return Math.floor(100 * (fat / (fat + protein + carb)));
-  }
-  percentageOfCarbs(): number {
-    const fat = this.currentFood.totalFat * 9;
-    const carb = (this.currentFood.carbohydrate) * 4 + this.currentFood.fibre * 2;
-    const protein = this.currentFood.protein * 4
-    return Math.floor(100 * (carb / (fat + protein + carb)));
+  ngOnInit(): void {
+    this.carbs = Food.percentageOfCarbs(this.currentFood);
+    this.fats = Food.percentageOfFats(this.currentFood);
+    this.protein = Food.percentageOfProtein(this.currentFood);
+    this.fiber = Food.percentageOfFiber(this.currentFood);
+    this.pieChartType = 'pie';
+    this.pieChartLegend = true;
+    this.pieChartData = [this.carbs, this.fats, this.protein, this.fiber];
+    this.pieChartLabels = [[`Carbs ${this.carbs}%`], [`Fat ${this.fats}%`], `Protein ${this.protein}%`, `Fiber ${this.fiber}%`];
+    monkeyPatchChartJsTooltip();
+    monkeyPatchChartJsLegend();
   }
 
-  percentageOfProtein(): number {
-    const fat = this.currentFood.totalFat * 9;
-    const carb = (this.currentFood.carbohydrate) * 4 + this.currentFood.fibre * 2;
-    const protein = this.currentFood.protein * 4
-    return Math.floor(100 * (protein / (fat + protein + carb)));
-  }
+
+
+
+
+
+
+
+
+
 
 
 }

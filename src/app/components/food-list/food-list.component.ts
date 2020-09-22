@@ -1,16 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { FoodService } from '../../service/food.service';
 import { Food } from '../../models/food.model';
 import { Category } from '../../models/category.model';
 import { CategoryService } from '../../service/category.service';
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { LocalStorageService } from '../../service/local-storage.service';
+import { faInfoCircle, faPenSquare } from '@fortawesome/free-solid-svg-icons';
+
 @Component({
   selector: 'app-food-list',
   templateUrl: './food-list.component.html',
   styleUrls: ['./food-list.component.css']
 })
-export class FoodListComponent implements OnInit, OnDestroy {
+export class FoodListComponent implements OnInit, OnDestroy,OnChanges {
 
 
   foodList: Food[];
@@ -19,12 +21,14 @@ export class FoodListComponent implements OnInit, OnDestroy {
   categoriesList: Category[];
   category;
   mySubscription: any;
+  faInfoCircle = faInfoCircle;
+  faPenSquare = faPenSquare;
 
 
 
   constructor(
     private foodService: FoodService,
-    private categoriesService: CategoryService, 
+    private categoriesService: CategoryService,
     private route: ActivatedRoute, private router: Router,
     private storageService: LocalStorageService) {
 
@@ -39,6 +43,10 @@ export class FoodListComponent implements OnInit, OnDestroy {
     });
 
   }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.getFoodList();
+    this.getCategoryList();
+  }
 
 
 
@@ -46,6 +54,7 @@ export class FoodListComponent implements OnInit, OnDestroy {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
+    
   }
 
   ngOnInit(): void {
@@ -108,7 +117,7 @@ export class FoodListComponent implements OnInit, OnDestroy {
   }
 
   private navigateToComparsion() {
- 
+
     this.router.navigate(['/compare/']);
 
   }

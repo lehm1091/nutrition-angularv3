@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FoodService } from '../../service/food.service';
 import { Food } from '../../models/food.model';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-autocomplete-food',
@@ -9,6 +10,16 @@ import { Food } from '../../models/food.model';
 })
 export class AutocompleteFoodComponent implements OnInit {
 
+  searchValue = '';
+  foodList: Food[];
+  faSearch = faSearch;
+
+  public placeholder: string = 'Find Nutritional Value of a Product';
+  public keyword = 'name';
+  public historyHeading: string = 'Recently selected';
+
+
+
   constructor(private foodService: FoodService) { }
 
   ngOnInit(): void {
@@ -16,15 +27,6 @@ export class AutocompleteFoodComponent implements OnInit {
     this.getFoodList();
 
   }
-
-  searchValue = '';
-  foodList: Food[];
-
-  public placeholder: string = 'Enter the Product Name';
-  public keyword = 'name';
-  public historyHeading: string = 'Recently selected';
-
-
 
 
   getFoodList(): void {
