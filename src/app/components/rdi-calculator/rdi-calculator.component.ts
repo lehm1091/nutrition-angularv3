@@ -16,7 +16,7 @@ export class RdiCalculatorComponent implements OnInit {
   heightUnitPrimary = 'cm';
   isMetric = true;
   heightUnitTitle: string = "switch to imperial";
-  bmi = 0;
+  bmr = 0;
   rdi = 0;
 
 
@@ -85,17 +85,17 @@ export class RdiCalculatorComponent implements OnInit {
 
 
     if (this.calculatorForm.controls['height'].value === "male") {
-      this.bmi = 88.362 + 13.397 * weight + 12.7 * heightTotal - 5.677 * this.calculatorForm.controls['age'].value;
+      this.bmr = 88.362 + 13.397 * weight + 12.7 * heightTotal - 5.677 * this.calculatorForm.controls['age'].value;
 
     }
     else {
-      this.bmi = 447.593 + weight * 9.247 + heightTotal * 3.098 - 4.330 * this.calculatorForm.controls['age'].value;
+      this.bmr = 447.593 + weight * 9.247 + heightTotal * 3.098 - 4.330 * this.calculatorForm.controls['age'].value;
     }
 
-    this.rdi = this.bmi * this.calculatorForm.controls['PAL'].value;
+    this.rdi = this.bmr * this.calculatorForm.controls['PAL'].value;
 
     this.rdi = Math.round(this.rdi);
-    this.bmi = Math.round(this.bmi);
+    this.bmr = Math.round(this.bmr);
   }
 
 
