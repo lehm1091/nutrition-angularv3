@@ -5,6 +5,8 @@ import { AutocompleteFoodComponent } from './components/autocomplete-food/autoco
 import { FoodComparsionComponent } from './components/food-comparsion/food-comparsion.component';
 import { FoodDetailComponent } from './components/food-detail/food-detail.component';
 import { FoodListComponent } from './components/food-list/food-list.component';
+import { RdiCalculatorComponent } from './components/rdi-calculator/rdi-calculator.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 
 const routes: Routes = [
@@ -16,7 +18,9 @@ const routes: Routes = [
   { path: 'edit-food/:id', component: AddFoodComponent },
   { path: 'foods/category/:category', component: FoodListComponent },
   { path: 'compare', component: FoodComparsionComponent },
-  { path: 'test', component: AutocompleteFoodComponent },
+  { path: 'rdi', component: RdiCalculatorComponent },
+  { path: '404', component: NotfoundComponent },
+  { path: '**', redirectTo: '/404' }
 ];
 
 @NgModule({

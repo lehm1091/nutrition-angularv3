@@ -13,7 +13,7 @@ export class LocalStorageService {
     this.clearList();
     localStorage.setItem('listOfIds', JSON.stringify(ids));
     const retrievedData = localStorage.getItem('listOfIds');
-    console.log(retrievedData);
+   
 
   }
 
@@ -34,7 +34,6 @@ export class LocalStorageService {
   private initList(): void {
     const retrievedData = localStorage.getItem('listOfIds');
     if (retrievedData === null) {
-
       localStorage.setItem('listOfIds', '');
       console.log("se creo el item en local storage");
     }
@@ -64,6 +63,7 @@ export class LocalStorageService {
   }
   clearList(): void {
     localStorage.removeItem('listOfIds');
+    localStorage.setItem('listOfIds', '');
 
   }
   limitReached(): boolean {

@@ -1,83 +1,95 @@
-<div class="container-sm px-0 bg-white ">
+<div class="container-sm  ">
 
-	<h4 class="card-title text-center">
-		<a routerLink="/food-list/" class="text-dark">Product List</a>
-	</h4>
+	<div class="row">
+		<div class="col">
+			<h3 class="card-title text-center my-1" style="background-color:#f5f5f5">
+				<a routerLink="/" class="text-dark">Product List</a>
+			</h3>
+		</div>
 
+	</div>
 
 
 	<div class="row">
 
-		<div class="col p-0 bg-white ">
-			<div class="m-1">
-				<div class="" style="background-color:#f5f5f5">
+		<div class="col  ">
 
-					<div class="py-1  mx-1 bg-white">
+			<div class="">
 
-						<div class="text-center my-2">
-							<h6 class="text-muted  ">Search by Category</h6>
-							<div class="row w-80 mx-auto">
-								<a (click)="getFoodByCategory(item.name)"
-									[ngClass]="{'text-secondary': category==item.name}" class="col-sm"
-									*ngFor="let item of categoriesList">{{item.name}}</a>
-							</div>
+				<div class="py-1 my-1 bg-white">
+					<div class="text-center my-2">
+						<h4 class="text-muted my-1  ">Search by Category</h4>
 
+						<h6 class="text-warning" *ngIf="categoriesList.length <1">No categories found</h6>
+
+						<div class="row w-80 mx-auto">
+							<a (click)="getFoodByCategory(item.name)"
+								[ngClass]="{'text-secondary': category==item.name}" class="col-sm"
+								*ngFor="let item of categoriesList">{{item.name}}</a>
 						</div>
-						<h6 class="card-subtitle  text-muted my-2">{{title}}</h6>
 
-						<table class="table table-hover bg-white">
-							<tbody>
-								<tr class="" *ngFor="let item of foodList; let i=index">
-
-									<td>
-										<span class="badge badge-primary badge-pill ">{{i+1}}</span>
-
-
-									</td>
-									<td>
-										<span class="">{{item.name}}</span>
-
-									</td>
-
-
-
-							
-
-									<td class="">
-										<button type="button" class="btn btn-outline-info ml-2 "
-											routerLink="/edit-food/{{item.id}}" title="Edit">
-											<fa-icon [icon]="faPenSquare">
-											</fa-icon>
-										</button>
-
-
-									</td>
-
-									<td class=""> <button type="button" class="btn btn-outline-info  "
-											routerLink="/foods/{{item.id}}" title="Details">
-											<fa-icon [icon]="faInfoCircle">
-											</fa-icon>
-										</button>
-									</td>
-
-
-
-
-
-
-
-
-								</tr>
-							</tbody>
-
-
-
-
-						</table>
 					</div>
+
+
+
+					<table class="table  table-sm  ">
+						<thead class="">
+							<tr>
+								<th colspan="100%">
+									<h6 class="">{{title}}</h6>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th colspan="100%" *ngIf="foodList.length<1">
+									<h6 class="text-warning">No Items found</h6>
+								</th>
+							</tr>
+							<tr class="" *ngFor="let item of foodList; let i=index">
+								<td style="width: 10%">
+									<span class="badge badge-primary badge-pill ">{{i+1}}</span>
+								</td>
+								<td style="width: 60%">
+									<span class="">{{item.name}}</span>
+
+								</td>
+
+
+
+
+
+								<td style="width: 50%" class="text-center">
+									<button type="button" class="btn btn-outline-info   mx-2"
+										routerLink="/foods/{{item.id}}" title="Details">
+										Details
+										<fa-icon [icon]="faInfoCircle">
+										</fa-icon>
+									</button>
+								</td>
+
+
+
+
+
+
+
+
+							</tr>
+						</tbody>
+
+
+
+
+					</table>
+
+
 				</div>
 
+
 			</div>
+
+
 		</div>
 
 

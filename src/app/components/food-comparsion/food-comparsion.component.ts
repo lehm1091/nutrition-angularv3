@@ -1,4 +1,4 @@
-import { Component, OnInit, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnChanges, OnInit, Pipe, PipeTransform, SimpleChanges } from '@angular/core';
 import { FoodService } from '../..//service/food.service';
 import { Food } from '../../models/food.model';
 import { ActivatedRoute } from '@angular/router';
@@ -10,7 +10,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './food-comparsion.component.html',
   styleUrls: ['./food-comparsion.component.css']
 })
-export class FoodComparsionComponent implements OnInit {
+export class FoodComparsionComponent implements OnInit, OnChanges {
   faTimes = faTimes;
   foods: Food[];
   canShowList: boolean;
@@ -21,9 +21,25 @@ export class FoodComparsionComponent implements OnInit {
     private route: ActivatedRoute,
     private localStorageService: LocalStorageService
   ) { }
+  ngOnChanges(): void {
+
+
+
+  }
 
   ngOnInit(): void {
-    this.canShowList = false;
+    this.canShowList = true;
+
+    console.log(this.canShowList);
+
+
+
+
+
+
+
+
+
 
     //this.foodService.getAllByIds(this.storageService.getList()).subscribe(
 
@@ -46,27 +62,58 @@ export class FoodComparsionComponent implements OnInit {
   initItems() {
     this.foods = [];
     this.ids = this.localStorageService.getList();
+    console.log(this.ids);
 
     if (this.ids.length > 0) {
+      this.canShowList = true;
 
       this.foodService.getAllByIds(this.ids).subscribe(
         response => {
           this.foods = response;
-
         },
         error => {
           console.log(error);
+          this.canShowList = false;
+          this.removeAllItems();
+
+
+        },
+        () => {
+          console.log("food" + this.foods.toString)
+          if (this.foods.length > 0) {
+            this.canShowList = true;
+            let ids = this.foods.map(food => food.id);
+            this.removeAllItems();
+            ids.forEach(item => {
+              this.localStorageService.addId(item);
+            })
+
+
+          }
+          else {
+            this.removeAllItems();
+            this.canShowList = false;
+          }
+
         }
-      )
-      this.canShowList = true;
+      );
+
+      
+
+
     } else {
       this.canShowList = false;
     }
+
+
+
+
+
   }
 
   removeAllItems() {
     this.localStorageService.clearList();
-    this.canShowList = false;
+
   }
 
   removeOneItem(id) {

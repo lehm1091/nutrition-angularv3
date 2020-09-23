@@ -34,7 +34,7 @@ export class CheckBoxCategory {
 })
 export class AddFoodComponent implements OnInit {
 
-
+  title = "New Product";
   editing = false;
   id = 0;
   formIsValid = false;
@@ -59,7 +59,7 @@ export class AddFoodComponent implements OnInit {
     if (this.route.snapshot.paramMap.has('id')) {
       this.id = Number(this.route.snapshot.paramMap.get('id'));
       this.editing = true;
-
+      this.title="Edit Product";
       this.service.getOneById(this.id).subscribe(
         data => {
 

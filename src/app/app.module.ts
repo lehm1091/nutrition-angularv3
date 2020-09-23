@@ -22,6 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { RdiCalculatorComponent } from './components/rdi-calculator/rdi-calculator.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { InternalservererrorComponent } from './internalservererror/internalservererror.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { RdiCalculatorComponent } from './components/rdi-calculator/rdi-calculat
     FoodListComponent,
     PiechartComponent,
     BarChartComponent,
-    RdiCalculatorComponent
+    RdiCalculatorComponent,
+    NotfoundComponent,
+    InternalservererrorComponent
   ],
   imports: [
     BrowserModule,

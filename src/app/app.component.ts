@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from './service/local-storage.service';
-import { faHome, faPlusSquare, faChartBar } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faPlusSquare, faChartBar, faCalculator } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   faHome = faHome;
   faPlusSquare = faPlusSquare;
   faCharBar = faChartBar;
+  faCalculator=faCalculator;
 
   constructor(private storageService: LocalStorageService) { }
 

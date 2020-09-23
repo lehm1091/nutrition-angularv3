@@ -1,0 +1,173 @@
+<div class="container-sm">
+    <form [formGroup]="calculatorForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="weight">Weigth(<a class="card-link" (click)="swithWeightUnits()"
+                        id=""><small>{{weightUnitTitle}}</small> </a>)</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" formControlName="weight"
+                        [ngClass]="{'is-invalid':submitted && form.weight.errors}">
+                    <div class="input-group-append">
+                        <span class="input-group-text" id="">{{weigthUnit}}</span>
+                    </div>
+
+
+                    <div *ngIf="submitted && form.weight.errors" class="invalid-feedback">
+                        <div *ngIf="form.weight.errors.required">Weigth is required</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="height">Height(<a class="card-link" (click)="swicthHeightUnits()"
+                        id=""><small>{{heightUnitTitle}}</small> </a>)</label>
+
+                <div class="input-group row">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="height"
+                                [ngClass]="{'is-invalid':submitted && form.height.errors}">
+
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="">{{heightUnitPrimary}}</span>
+                            </div>
+
+                            <div *ngIf="submitted && form.height.errors" class="invalid-feedback">
+                                <div *ngIf="form.height.errors.required">Height is required</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col" *ngIf="!isMetric">
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="heightSecondary"
+                                [ngClass]="{'is-invalid':submitted && form.heightSecondary.errors}">
+
+                            <div class="input-group-append">
+                                <span class="input-group-text" id="">{{heightUnitSecondary}}</span>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="form-row">
+            <div class="form-group col">
+                <label for="age">Age</label>
+                <input type="text" class="form-control" formControlName="age"
+                    [ngClass]="{'is-invalid':submitted && form.age.errors}">
+                <div *ngIf="submitted && form.age.errors" class="invalid-feedback">
+                    <div *ngIf="form.age.errors.required">Age is required</div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <div class="form-check">
+                    <input id="male" class="form-check-input" type="radio" value="male" name="gender"
+                        formControlName="gender">
+                    <label for="male" class="form-check-label">Male</label>
+                </div>
+
+                <div class="form-check">
+                    <input id="female" class="form-check-input" type="radio" value="female" name="gender"
+                        formControlName="gender">
+                    <label for="female" class="form-check-label">Female</label>
+                </div>
+
+                <div *ngIf="form.gender.touched && form.gender.invalid" class="alert alert-danger">
+                    <div *ngIf="form.gender.errors.required">Gender is required.</div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col">
+                <label>PAL</label>
+                <select formControlName="PAL" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && form.PAL.errors }">
+                    <option value="1.2">Sedentary: Little or no exercise </option>
+                    <option value="1.375">Lightly active: Light exercise/sports 1-3 days/week</option>
+                    <option value="1.55">Moderatetely active: Moderate exercise/sports 3-5 days/week</option>
+                    <option value="1.725">Very active: Hard exercise/sports 6-7 days a week</option>
+                </select>
+                <div *ngIf="submitted && form.PAL.errors" class="invalid-feedback">
+                    <div *ngIf="form.PAL.errors.required">PAL is required</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="text-center">
+            <button class="btn btn-primary mr-1">Calculate</button>
+
+        </div>
+
+
+
+    </form>
+
+    <div class="row py-2">
+        <div class="col">
+            <div class="bg-white-smoke">
+                <div class="p-3">
+                    <h5>BMI <span class="font-weight-bold text-info">{{bmi}}</span> </h5>
+                    <h5 class="text-dark ">Your recomended diary food intake is :
+                        <span class="font-weight-bold text-info">{{rdi}}
+                            kcals</span> </h5>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row py-2">
+        <div class="col">
+            <div>
+                <h2>Revised Harris-Benedict Equation</h2>
+                <p>Revised Harris Benedict Equation is a tool to determine the values of BMR. Also known as the Harris
+                    Benedict Principle, the Harris Benedict Equation was first published in 1918 and 1919. This equation
+                    was revised by Roza and Shizgal in 1984, and named as Revised Harris-Benedict Equation.</p>
+                <p>BMR is calculated using your weight in kg, your height in cm, and your age in years. The BMR formula
+                    calculation using the Revised Harris Benedict Equation</p>
+                <ul>
+                    <li>
+                        <p>Metric for men</p>
+                        <p>BMR = 88.362 + ( 13.397 x weight in kg ) + ( 4.799 x height in cm ) – ( 5.677 x age in years
+                            )</p>
+                    </li>
+                    <li>
+                        <p>Metric for woman</p>
+                        <p>BMR- 447.593 + ( 9.247 x weight in kg ) + ( 3.098 x height in cm ) – (4.330 x age in years )
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+</div>

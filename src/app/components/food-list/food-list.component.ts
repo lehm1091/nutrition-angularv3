@@ -12,13 +12,13 @@ import { faInfoCircle, faPenSquare } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './food-list.component.html',
   styleUrls: ['./food-list.component.css']
 })
-export class FoodListComponent implements OnInit, OnDestroy,OnChanges {
+export class FoodListComponent implements OnInit, OnDestroy, OnChanges {
 
 
-  foodList: Food[];
+  foodList: Food[] = [];
   name = '';
   title = '';
-  categoriesList: Category[];
+  categoriesList: Category[]=[];
   category;
   mySubscription: any;
   faInfoCircle = faInfoCircle;
@@ -54,7 +54,7 @@ export class FoodListComponent implements OnInit, OnDestroy,OnChanges {
     if (this.mySubscription) {
       this.mySubscription.unsubscribe();
     }
-    
+
   }
 
   ngOnInit(): void {
