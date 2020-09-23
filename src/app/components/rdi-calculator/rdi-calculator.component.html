@@ -1,4 +1,17 @@
 <div class="container-sm">
+
+    <div class="row">
+        <div class="col">
+            <h3 class="card-title text-center my-1" style="background-color:#f5f5f5">
+                <a routerLink="/" class="text-dark">Daily calorie intake </a>
+            </h3>
+        </div>
+
+    </div>
+
+
+
+
     <form [formGroup]="calculatorForm" (ngSubmit)="onSubmit()">
         <div class="form-row">
             <div class="form-group col">
@@ -134,7 +147,7 @@
             <div class="bg-white-smoke">
                 <div class="p-3">
                     <h5>BMR: <span class="font-weight-bold text-info">{{bmr}}</span> </h5>
-                    <h5 class="text-dark ">Your recomended diary food intake is :
+                    <h5 class="text-dark ">Your recomended daily calorie intake is :
                         <span class="font-weight-bold text-info">{{rdi}}
                             kcals</span> </h5>
                 </div>
