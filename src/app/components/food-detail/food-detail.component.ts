@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-food-detail',
   templateUrl: './food-detail.component.html',
-  styleUrls: ['./food-detail.component.css']
+  styleUrls: ['./food-detail.component.scss']
 })
 export class FoodDetailComponent implements OnInit, OnChanges {
   currentFood: Food;

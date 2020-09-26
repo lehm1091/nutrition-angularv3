@@ -30,7 +30,7 @@ export class CheckBoxCategory {
 @Component({
   selector: 'app-add-food',
   templateUrl: './add-food.component.html',
-  styleUrls: ['./add-food.component.css']
+  styleUrls: ['./add-food.component.scss']
 })
 export class AddFoodComponent implements OnInit {
 

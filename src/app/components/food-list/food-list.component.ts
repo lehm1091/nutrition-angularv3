@@ -10,7 +10,7 @@ import { faInfoCircle, faPenSquare } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-food-list',
   templateUrl: './food-list.component.html',
-  styleUrls: ['./food-list.component.css']
+  styleUrls: ['./food-list.component.scss']
 })
 export class FoodListComponent implements OnInit, OnDestroy, OnChanges {
 

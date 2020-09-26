@@ -8,7 +8,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-food-comparsion',
   templateUrl: './food-comparsion.component.html',
-  styleUrls: ['./food-comparsion.component.css']
+  styleUrls: ['./food-comparsion.component.scss']
 })
 export class FoodComparsionComponent implements OnInit, OnChanges {
   faTimes = faTimes;

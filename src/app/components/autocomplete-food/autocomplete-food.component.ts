@@ -6,7 +6,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-autocomplete-food',
   templateUrl: './autocomplete-food.component.html',
-  styleUrls: ['./autocomplete-food.component.css']
+  styleUrls: ['./autocomplete-food.component.scss']
 })
 export class AutocompleteFoodComponent implements OnInit {
 

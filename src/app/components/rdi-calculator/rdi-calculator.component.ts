@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-rdi-calculator',
   templateUrl: './rdi-calculator.component.html',
-  styleUrls: ['./rdi-calculator.component.css']
+  styleUrls: ['./rdi-calculator.component.scss']
 })
 export class RdiCalculatorComponent implements OnInit {
 

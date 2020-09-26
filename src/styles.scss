@@ -1,0 +1,63 @@
+/*! `Herbie` Bootstrap 4 theme */
+@import url(https://use.fontawesome.com/releases/v5.0.10/css/all.css);
+@import url(https://fonts.googleapis.com/css?family=Nunito:200,300,400,700);
+$font-family-base:Nunito;
+@import url(https://fonts.googleapis.com/css?family=Crete+Round:200,300,400,700);
+$headings-font-family:Crete Round;
+$primary:#083358;
+$secondary:#F67280;
+$success:#0074E4;
+$danger:#FF4057;
+$info:#74DBEF;
+$warning:#FC3C3C;
+$light:#F2F2F0;
+$dark:#072247;
+$grid-gutter-width: 10px ;
+
+// Add SASS theme customizations here..
+@import "node_modules/bootstrap/scss/bootstrap";
+
+// Add SASS theme customizations here..
+
+
+  
+
+
+.border-b-3 {
+    border-bottom:3px solid grey !important;
+}
+
+.border-b-9 {
+    border-bottom:9px solid grey !important;
+}
+.border-b-6 {
+    border-bottom:6px solid grey !important;
+}
+
+.border-b-1 {
+    border-bottom:1px solid grey !important;
+}
+
+
+.border-1 {
+    border:1px solid grey !important;
+}
+.border-2 {
+    border:2px solid grey !important;
+}
+
+
+.bg-white-smoke{
+    background-color:#f5f5f5;
+}
+
+.form-group {
+    margin-bottom: 0.2rem;
+}
+
+.bg-label{
+    background-color:#f5f5f5;
+
+  
+
+}

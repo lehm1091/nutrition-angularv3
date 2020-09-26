@@ -6,7 +6,7 @@ import { Food } from '../../models/food.model';
 @Component({
   selector: 'app-piechart',
   templateUrl: './piechart.component.html',
-  styleUrls: ['./piechart.component.css']
+  styleUrls: ['./piechart.component.scss']
 })
 export class PiechartComponent implements OnInit {
 
