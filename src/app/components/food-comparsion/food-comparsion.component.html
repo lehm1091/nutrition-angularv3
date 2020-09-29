@@ -33,7 +33,7 @@
 
                             <table class="table table-sm border-left bg-white ">
 
-                                <thead class="bg-secondary text-white ">
+                                <thead class="bg-dark text-white ">
                                     <tr>
                                         <th class="text-left">Nutrients</th>
                                         <th class="text-center" *ngFor="let item of foods; let i=index">
@@ -75,7 +75,7 @@
                                     <tr>
                                         <td class="text-left">Serving Size </td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.calories,'calories')}">
+                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.servingSize,'servingSize')}">
                                             <span class="">{{item.servingSize}}</span>
 
 
@@ -90,7 +90,7 @@
 
                                         <td class="text-left">Vitamin A</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.vitaminA,'vitaminA')}">
                                             <span class="">{{item.vitaminA}} mcg</span>
                                         </td>
                                     </tr>
@@ -99,7 +99,7 @@
 
                                         <td class="text-left">Vitamin D</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.vitaminD,'vitaminD')}">
                                             <span class="">{{item.vitaminD}} mcg</span>
                                         </td>
                                     </tr>
@@ -108,7 +108,7 @@
 
                                         <td class="text-left">Vitamin C</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.vitaminC,'vitaminC')}">
                                             <span class="">{{item.vitaminC}} mg</span>
                                         </td>
                                     </tr>
@@ -122,7 +122,7 @@
 
                                         <td class="text-left">Calcium</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.calcium,'calcium')}">
                                             <span class="">{{item.calcium}} mg</span>
                                         </td>
                                     </tr>
@@ -131,7 +131,7 @@
 
                                         <td class="text-left">Iron</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.iron,'iron')}">
                                             <span class="">{{item.iron}} mg</span>
                                         </td>
                                     </tr>
@@ -141,7 +141,7 @@
 
                                         <td class="text-left">Potassium</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.potassium,'potassium')}">
                                             <span class="">{{item.potassium}} mg</span>
                                         </td>
                                     </tr>
@@ -170,14 +170,14 @@
 
                                         <td class="text-left ">Fat</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.fat,'fat')}">
                                             <span class="">{{item.fat}} g</span>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="text-left ">Saturated Fat</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.saturatedFat,'saturatedFat')}">
                                             <span class="">{{item.saturatedFat}} g</span>
                                         </td>
                                     </tr>
@@ -185,7 +185,7 @@
                                     <tr>
                                         <td class="text-left ">Monounsaturated Fat</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.monounsaturatedFat,'monounsaturatedFat')}">
                                             <span class="">{{item.monounsaturatedFat}} g</span>
                                         </td>
                                     </tr>
@@ -193,7 +193,7 @@
                                     <tr>
                                         <td class="text-left ">Polyunsaturated Fat</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.protein,'protein')}">
+                                            [ngClass]="{'font-weight-bold text-danger ': isMax(item.polyunsaturatedFat,'polyunsaturatedFat')}">
                                             <span class="">{{item.polyunsaturatedFat}} g</span>
                                         </td>
                                     </tr>
@@ -208,7 +208,7 @@
 
                                         <td class="text-left">Added Sugar</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.fat,'fat')}">
+                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.addedSugar,'addedSugar')}">
                                             <span class="">{{item.addedSugar}} g</span>
                                         </td>
                                     </tr>
@@ -218,7 +218,7 @@
 
                                         <td class="text-left">Carbohydatre</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.fat,'fat')}">
+                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.carbohydrate,'carbohydrate')}">
                                             <span class="">{{item.carbohydrate}} g</span>
                                         </td>
                                     </tr>
@@ -227,7 +227,7 @@
 
                                         <td class="text-left">Fiber</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.carbohydrate,'carbohydrate')}">
+                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.fiber,'fiber')}">
                                             <span class="">{{item.fiber}} g</span>
                                         </td>
                                     </tr>
@@ -235,7 +235,7 @@
 
                                         <td class="text-left">Sugar</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.carbohydrate,'carbohydrate')}">
+                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.sugar,'sugar')}">
                                             <span class="">{{item.sugar}} g</span>
                                         </td>
                                     </tr>
@@ -259,7 +259,7 @@
 
                                         <td class="text-left">cholesterol</td>
                                         <td class="text-right" *ngFor="let item of foods; let i=index"
-                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.fiber,'fiber')}">
+                                            [ngClass]="{'font-weight-bold text-danger': isMax(item.cholesterol,'cholesterol')}">
                                             <span class="">{{item.cholesterol}} g</span>
                                         </td>
                                     </tr>

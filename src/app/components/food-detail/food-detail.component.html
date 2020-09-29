@@ -4,30 +4,32 @@
 		<div class="col-12 ">
 
 			<div class="py-2 " style="background-color:#f5f5f5">
-
-
-
 				<div id="header" class="mx-1">
-
-					<h4 class="text-success display-4">{{currentFood.name}}</h4>
-
+					<div class="spinner-border" *ngIf="loading" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+					<h4 class="text-success display-4">{{currentFood?.name}}</h4>
 					<div class="d-block">
-						<a (click)="addItemToComparsion(currentFood.id)" class="card-link">Add
-							to comparison
+						<a (click)="addItemToComparsion(currentFood.id)" class="card-link">
 							<fa-icon class="mx-1" [icon]="faChartBar">
-							</fa-icon></a>
+							</fa-icon>
+						</a>
+						Add to comparison
 
-						<a class="card-link" routerLink="/edit-food/{{currentFood.id}}" title="Edit">
-							Edit
+
+						<a class="card-link" routerLink="/edit-food/{{currentFood?.id}}" title="Edit">
 							<fa-icon class="mx-1" [icon]="faPenSquare">
 							</fa-icon>
 
+							Edit
+
 						</a>
 
-						<a class="card-link" (click)="deleteCurrentFoodDialog()" title="Delete">
-							Delete
+						<a class="card-link" (click)="deleteCurrentFood()" title="Delete">
 							<fa-icon class="mx-1" [icon]="faTrash">
 							</fa-icon>
+							Delete
+
 
 						</a>
 					</div>

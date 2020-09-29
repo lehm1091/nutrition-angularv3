@@ -34,6 +34,8 @@ export class RdiCalculatorComponent implements OnInit {
   }
 
 
+  
+
 
   swithWeightUnits() {
     if (this.weigthUnit === 'lbs') {

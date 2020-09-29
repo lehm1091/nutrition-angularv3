@@ -18,11 +18,13 @@ export class FoodListComponent implements OnInit, OnDestroy, OnChanges {
   foodList: Food[] = [];
   name = '';
   title = '';
-  categoriesList: Category[]=[];
+  categoriesList: Category[] = [];
   category;
   mySubscription: any;
   faInfoCircle = faInfoCircle;
   faPenSquare = faPenSquare;
+  foodLoading = true;
+  categoriesLoading = true;
 
 
 
@@ -68,6 +70,8 @@ export class FoodListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   getFoodList(): void {
+
+    this.foodLoading = true;
     this.category = this.route.snapshot.paramMap.get('category');
     if (this.category) {
       this.title = `List of products from ${this.category} category`;
@@ -77,30 +81,47 @@ export class FoodListComponent implements OnInit, OnDestroy, OnChanges {
         },
         error => {
           console.log(error);
+          this.foodList = [];
+          this.foodLoading = false;
+        },
+        () => {
+
+
+          this.foodLoading = false;
         }
       );
     } else {
       this.title = "Last 10 Products"
-
-
       this.foodService.getTop10().subscribe(
         response => {
           this.foodList = response;
+          console.log("dentro de response")
+
         },
         error => {
           console.log(error);
+          this.foodLoading = false;
+        },
+        () => {
+          this.foodLoading = false;
         }
       );
     }
   }
 
   getCategoryList(): void {
+    this.categoriesLoading = true;
+
     this.categoriesService.getAll().subscribe(
       response => {
         this.categoriesList = response;
       },
       error => {
         console.log(error);
+        this.categoriesLoading = false;
+      },
+      () => {
+        this.categoriesLoading = false;
       }
     );
   }

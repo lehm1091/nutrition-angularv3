@@ -6,6 +6,7 @@ import { Food } from '../../models/food.model';
 import { LocalStorageService } from '../../service/local-storage.service';
 import { faChartBar, faCheck, faPenSquare, faSave, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Swal from 'sweetalert2';
+import { AlertService } from 'src/app/_services/alert.service';
 
 
 
@@ -21,13 +22,15 @@ export class FoodDetailComponent implements OnInit, OnChanges {
   faChartBar = faChartBar;
   faSave = faSave;
   faTrash = faTrash;
+  loading = true;
 
   constructor(
 
     private foodService: FoodService,
     private route: ActivatedRoute,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private alertService: AlertService
 
 
   ) {
@@ -42,9 +45,6 @@ export class FoodDetailComponent implements OnInit, OnChanges {
 
     this.getFoodById(this.route.snapshot.paramMap.get('id'));
     console.log(this.currentFood);
-
-
-
   }
   ngOnChanges(): void {
 
@@ -58,6 +58,11 @@ export class FoodDetailComponent implements OnInit, OnChanges {
       },
       error => {
         console.log(error);
+        this.alertService.errorDialog(error);
+      }
+      ,
+      () => {
+        this.loading = false;
       }
     );
 
@@ -88,47 +93,37 @@ export class FoodDetailComponent implements OnInit, OnChanges {
   }
 
 
-  deleteCurrentFoodDialog(): void {
-
-    Swal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert this!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.deleteCurrentFood();
-        this.navigateToList();
-        Swal.fire(
-          'Deleted!',
-          'Your file has been deleted.',
-          'success'
-        )
-
-
-      }
-    });
-
-
-  }
-
-
   deleteCurrentFood() {
-    this.foodService.deleteOneById(this.currentFood.id).subscribe(
-      error => {
-        if (error) { console.log(error); }
+    this.alertService.deleteDialog().then(
+      flag => {
+        if (flag === true) {
+          console.log("is true");
+          this.foodService.deleteOneById(this.currentFood.id).subscribe(
+            response => {
+              console.log(response);
+              this.alertService.deleteSucess();
+              this.navigateToList();
 
+            },
+            error => {
+              if (error) { console.log(error); }
+              this.alertService.errorDialog(error);
+
+            },
+            () => {
+
+            }
+          );
+        }
       }
-
-    )
+    );
 
   }
-
-
-
 
 }
+
+
+
+
+
 

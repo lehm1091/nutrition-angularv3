@@ -18,55 +18,56 @@
 
 				<div class="py-1 my-1 bg-white">
 					<div class="text-center my-2">
-						<h4 class="text-muted my-1  ">Search by Category</h4>
+						<h4 class="text-muted my-1">Search by Category</h4>
 
-						<h6 class="text-warning" *ngIf="categoriesList.length <1">No categories found</h6>
 
-						<div class="row w-80 mx-auto">
-							<a (click)="getFoodByCategory(item.name)"
-								[ngClass]="{'text-secondary': category==item.name}" class="col-sm"
-								*ngFor="let item of categoriesList">{{item.name}}</a>
+
+						<div *ngIf="!categoriesLoading; else loading">
+							<div class="row w-80 mx-auto">
+								<a (click)="getFoodByCategory(item.name)"
+									[ngClass]="{'text-secondary': category==item.name}" class="col-sm"
+									*ngFor="let item of categoriesList">{{item.name}}</a>
+							</div>
+							<h6 class="text-warning" *ngIf="categoriesList.length <1 && !categoriesLoading">No
+								categories found
+							</h6>
+
 						</div>
+
+
 
 					</div>
 
 
 
-					<table class="table  table-sm  ">
-						<thead class="">
-							<tr>
-								<th colspan="100%">
-									<h6 class="">{{title}}</h6>
-								</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<th colspan="100%" *ngIf="foodList.length<1">
-									<h6 class="text-warning">No Items found</h6>
-								</th>
-							</tr>
-							<tr class="" *ngFor="let item of foodList; let i=index">
-								<td style="width: 10%">
-									<span class="badge badge-primary badge-pill ">{{i+1}}</span>
-								</td>
-								<td style="width: 60%">
-									<span class="">{{item.name}}</span>
 
-								</td>
+					<div>
+						<table class="table  table-sm table-hover  ">
+
+							<thead class="">
+								<tr>
+									<th colspan="100%">
+										<h6 class="">{{title}}</h6>
+									</th>
+								</tr>
+
+							</thead>
+							<tbody>
 
 
+								<tr *ngIf="!foodLoading;else loading">
+									<th colspan="100%" *ngIf="foodList.length<1  && !foodLoading">
+										<h6 class="text-warning">No Items found</h6>
+									</th>
+								</tr>
+								<tr class="" *ngFor="let item of foodList; let i=index" routerLink="/foods/{{item.id}}" >
+									<td style="width: 10%">
+										<span class="badge badge-primary badge-pill ">{{i+1}}</span>
+									</td>
+									<td style="width: 60%">
+										<span class="">{{item.name}}</span>
 
-
-
-								<td style="width: 50%" class="text-center">
-									<button type="button" class="btn btn-outline-info   mx-2"
-										routerLink="/foods/{{item.id}}" title="Details">
-										Details
-										<fa-icon [icon]="faInfoCircle">
-										</fa-icon>
-									</button>
-								</td>
+									</td>
 
 
 
@@ -75,13 +76,22 @@
 
 
 
-							</tr>
-						</tbody>
+
+								</tr>
+							</tbody>
 
 
 
 
-					</table>
+						</table>
+					</div>
+					<ng-template #loading class="text-left">
+						<div class="spinner-border" role="status">
+							<span class="sr-only">Loading...</span>
+						</div>
+					</ng-template>
+
+
 
 
 				</div>

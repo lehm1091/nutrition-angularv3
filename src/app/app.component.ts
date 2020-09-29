@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   faHome = faHome;
   faPlusSquare = faPlusSquare;
   faCharBar = faChartBar;
-  faCalculator=faCalculator;
+  faCalculator = faCalculator;
 
   constructor(private storageService: LocalStorageService) { }
 

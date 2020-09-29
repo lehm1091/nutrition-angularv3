@@ -8,11 +8,11 @@ import { AutocompleteFoodComponent } from './components/autocomplete-food/autoco
 import { FoodComparsionComponent } from './components/food-comparsion/food-comparsion.component';
 import { FoodDetailComponent } from './components/food-detail/food-detail.component';
 import { FoodListComponent } from './components/food-list/food-list.component';
-import {FoodService} from './service/food.service';
-import {CategoryService} from './service/category.service';
-import {LocalStorageService} from './service//local-storage.service';
+import { FoodService } from './service/food.service';
+import { CategoryService } from './service/category.service';
+import { LocalStorageService } from './service//local-storage.service';
 
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { ChartsModule } from 'ng2-charts';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,6 +24,8 @@ import { BarChartComponent } from './components/bar-chart/bar-chart.component';
 import { RdiCalculatorComponent } from './components/rdi-calculator/rdi-calculator.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { InternalservererrorComponent } from './internalservererror/internalservererror.component';
+import { TitleCaseWord } from './_pipes/titleCaseWord.pipe';
+import { AlertService } from './_services/alert.service';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { InternalservererrorComponent } from './internalservererror/internalserv
     BarChartComponent,
     RdiCalculatorComponent,
     NotfoundComponent,
-    InternalservererrorComponent
+    InternalservererrorComponent,
+    TitleCaseWord
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ import { InternalservererrorComponent } from './internalservererror/internalserv
     NgbModule,
     FontAwesomeModule
   ],
-  providers: [FoodService, CategoryService, LocalStorageService],
+  providers: [FoodService, CategoryService, LocalStorageService, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

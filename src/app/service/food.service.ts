@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { ReturnStatement } from '@angular/compiler';
 
 const baseURL = "https://heroku-boot-backend.herokuapp.com/api";
-//const baseURL = "http://192.168.0.13:8080/api";
+//const baseURL = "http://192.168.0.11:8080/api";
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +42,10 @@ export class FoodService {
 
   create(data): Observable<any> {
     return this.http.post(`${baseURL}/foods`, data);
+  }
+
+  update(data, id): Observable<any> {
+    return this.http.put(`${baseURL}/foods/${id}`, data);
   }
 
   addCategories(productId, categoriesIds: number[]): Observable<any> {

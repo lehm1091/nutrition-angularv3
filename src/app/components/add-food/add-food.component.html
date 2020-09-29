@@ -1,5 +1,4 @@
 <div class="container-sm ">
-
     <div class="row">
         <div class="col">
             <h3 class="card-title text-center my-1" style="background-color:#f5f5f5">
@@ -11,269 +10,631 @@
 
     <div class="row">
 
-        <form class="bg-white col">
+
+        <form [formGroup]="foodForm" class="col" (ngSubmit)="onSubmit()">
+
 
             <div class="form-group row">
+                <label class=" col-md-4  col-label col-label-sm  "
+                    [ngClass]="{'text-danger':form.name.invalid && (form.name.dirty || form.name.touched)}"
+                    for="name">Name</label>
+                <div class="col-md-8 input-group-sm input-group">
 
-                    <label class=" col-md-4  col-label col-label-sm " for="name">Name</label>
-                  
-                    <div class=" col-md-8 input-group-sm input-group">
-                        <input type="text" class="form-control" id="name" [(ngModel)]="food.name" required minlength="3"
-                            #name="ngModel" name="name" [ngClass]="{'is-invalid': !this.name.valid}">
+                    <input type="text" class="form-control" id="name" required formControlName="name" [ngClass]="{
+                        'is-invalid':form.name.invalid && (form.name.dirty || form.name.touched),
+                        'is-valid':form.name.valid && (form.name.dirty || form.name.touched) 
+                }">
 
 
-                        <small *ngIf="name.invalid " class="invalid-feedback">
-                            <script>
+                    <small *ngIf="form.name.invalid && (form.name.dirty || form.name.touched)" class="invalid-feedback">
+                        <div *ngIf="form.name.errors.required">
+                            Name is required.
+                        </div>
+                        <div *ngIf="form.name.errors.minlength">
+                            Name must be atleast 3 characters long.
+                        </div>
+                    </small>
 
-                            </script>
-                            <div *ngIf="name.errors.required">
-                                Name is required.
-                            </div>
-                            <div *ngIf="name.errors.minlength">
-                                Name must be atleast 3 characters long.
-                            </div>
-                        </small>
+                </div>
 
-                    </div>
-           
             </div>
-
-            <div class="form-group row ">
-                <label class=" col-md-4  col-label col-label-sm" for="categories">Categories</label>
+            <div class="form-group row">
+                <label class=" col-md-4  col-label col-label-sm"
+                    [ngClass]="{'text-danger':(form.categories.dirty|| form.categories.touched) && checkedIDs.length===0}"
+                    for="">
+                    Categories
+                </label>
                 <div class="col-md-8">
 
-                    <div class="form-group">
+                    <div formArrayName="categories" class="form-check"
+                        *ngFor="let item of checkGroup.controls; let i = index;">
+                        <div [formGroupName]="i">
+                            <input id="category_{{i}}" name="categories" type="checkbox"
+                                [ngClass]="{'is-invalid':  (form.categories.dirty|| form.categories.touched) && checkedIDs.length===0 }"
+                                class="form-check-input" formControlName="checked"
+                                (change)="onChange(item.get('id').value,$event.target)">
 
-                        <div class="form-check" *ngFor="let item of checkBoxCategories">
-
-                            <input id="categories" name="categories" type="checkbox"
-                                [ngClass]="{'is-invalid': checkedIDs.length ===0  }" class="form-check-input" required
-                                [(ngModel)]="item.isChecked" (change)="onChange()">
-
-                            <label class="form-check-label" for="categories">
-                                {{ item.names }}
+                            <label class="form-check-label" for="category_{{i}}">
+                                {{item.get('name').value}}
                             </label>
-
-
                         </div>
-                        <small *ngIf="checkedIDs.length ===0 " style="color:#dc3545;">Select atleast one
-                            value.</small>
-
 
                     </div>
 
+                    <small *ngIf="(form.categories.dirty || form.categories.touched) && checkedIDs.length===0 "
+                        class="text-danger">
+                        <div *ngIf="checkedIDs.length ===0 ">
+                            Select atleast one
+                            value.
+                        </div>
+                    </small>
+
                 </div>
 
+
+
+            </div>
+
+
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.servingSize.invalid && (form.servingSize.dirty || form.servingSize.touched)}"
+                    for="servingSize">Serving size</label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="servingSize" formControlName="servingSize"
+                            required name="servingSize" [ngClass]="{
+                                'is-invalid':form.servingSize.invalid && (form.servingSize.dirty || form.servingSize.touched),
+                                'is-valid':form.servingSize.valid && (form.servingSize.dirty || form.servingSize.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.servingSize.invalid && (form.servingSize.dirty || form.servingSize.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.servingSize.invalid && (form.servingSize.dirty || form.servingSize.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.servingSize.errors.required ">
+                            Required
+                        </div>
+                        <div *ngIf="form.servingSize.errors.min ">
+                            Value must be greater or equal than 1
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.calories.invalid && (form.calories.dirty || form.calories.touched)}"
+                    for="calories">{{'calories' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="calories" formControlName="calories" required
+                            name="calories" [ngClass]="{
+                                'is-invalid':form.calories.invalid && (form.calories.dirty || form.calories.touched),
+                                'is-valid':form.calories.valid && (form.calories.dirty || form.calories.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.calories.invalid && (form.calories.dirty || form.calories.touched)}"
+                                class="input-group-text">kcal</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.calories.invalid && (form.calories.dirty || form.calories.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.calories.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.protein.invalid && (form.protein.dirty || form.protein.touched)}"
+                    for="protein">{{'protein' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="protein" formControlName="protein" required
+                            name="protein" [ngClass]="{
+                                'is-invalid':form.protein.invalid && (form.protein.dirty || form.protein.touched),
+                                'is-valid':form.protein.valid && (form.protein.dirty || form.protein.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.protein.invalid && (form.protein.dirty || form.protein.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.protein.invalid && (form.protein.dirty || form.protein.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.protein.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.cholesterol.invalid && (form.cholesterol.dirty || form.cholesterol.touched)}"
+                    for="cholesterol">{{'cholesterol' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="cholesterol" formControlName="cholesterol"
+                            required name="cholesterol" [ngClass]="{
+                                'is-invalid':form.cholesterol.invalid && (form.cholesterol.dirty || form.cholesterol.touched),
+                                'is-valid':form.cholesterol.valid && (form.cholesterol.dirty || form.cholesterol.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.cholesterol.invalid && (form.cholesterol.dirty || form.cholesterol.touched)}"
+                                class="input-group-text">mg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.cholesterol.invalid && (form.cholesterol.dirty || form.cholesterol.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.cholesterol.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.fat.invalid && (form.fat.dirty || form.fat.touched)}"
+                    for="fat">{{'fat' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="fat" formControlName="fat" required name="fat"
+                            [ngClass]="{
+                                'is-invalid':form.fat.invalid && (form.fat.dirty || form.fat.touched),
+                                'is-valid':form.fat.valid && (form.fat.dirty || form.fat.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.fat.invalid && (form.fat.dirty || form.fat.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.fat.invalid && (form.fat.dirty || form.fat.touched ) " class="text-danger">
+                        <div *ngIf="form.fat.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.transFat.invalid && (form.transFat.dirty || form.transFat.touched)}"
+                    for="transFat">{{'transFat' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="transFat" formControlName="transFat" required
+                            name="transFat" [ngClass]="{
+                                'is-invalid':form.transFat.invalid && (form.transFat.dirty || form.transFat.touched),
+                                'is-valid':form.transFat.valid && (form.transFat.dirty || form.transFat.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.transFat.invalid && (form.transFat.dirty || form.transFat.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.transFat.invalid && (form.transFat.dirty || form.transFat.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.transFat.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.saturatedFat.invalid && (form.saturatedFat.dirty || form.saturatedFat.touched)}"
+                    for="saturatedFat">{{'saturatedFat' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="saturatedFat" formControlName="saturatedFat"
+                            required name="saturatedFat" [ngClass]="{
+                                'is-invalid':form.saturatedFat.invalid && (form.saturatedFat.dirty || form.saturatedFat.touched),
+                                'is-valid':form.saturatedFat.valid && (form.saturatedFat.dirty || form.saturatedFat.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.saturatedFat.invalid && (form.saturatedFat.dirty || form.saturatedFat.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.saturatedFat.invalid && (form.saturatedFat.dirty || form.saturatedFat.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.saturatedFat.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.polyunsaturatedFat.invalid && (form.polyunsaturatedFat.dirty || form.polyunsaturatedFat.touched)}"
+                    for="polyunsaturatedFat">{{'polyunsaturatedFat' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="polyunsaturatedFat"
+                            formControlName="polyunsaturatedFat" required name="polyunsaturatedFat" [ngClass]="{
+                                'is-invalid':form.polyunsaturatedFat.invalid && (form.polyunsaturatedFat.dirty || form.polyunsaturatedFat.touched),
+                                'is-valid':form.polyunsaturatedFat.valid && (form.polyunsaturatedFat.dirty || form.polyunsaturatedFat.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.polyunsaturatedFat.invalid && (form.polyunsaturatedFat.dirty || form.polyunsaturatedFat.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small
+                        *ngIf="form.polyunsaturatedFat.invalid && (form.polyunsaturatedFat.dirty || form.polyunsaturatedFat.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.polyunsaturatedFat.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.monounsaturatedFat.invalid && (form.monounsaturatedFat.dirty || form.monounsaturatedFat.touched)}"
+                    for="monounsaturatedFat">{{'monounsaturatedFat' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="monounsaturatedFat"
+                            formControlName="monounsaturatedFat" required name="monounsaturatedFat" [ngClass]="{
+                                'is-invalid':form.monounsaturatedFat.invalid && (form.monounsaturatedFat.dirty || form.monounsaturatedFat.touched),
+                                'is-valid':form.monounsaturatedFat.valid && (form.monounsaturatedFat.dirty || form.monounsaturatedFat.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.monounsaturatedFat.invalid && (form.monounsaturatedFat.dirty || form.monounsaturatedFat.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small
+                        *ngIf="form.monounsaturatedFat.invalid && (form.monounsaturatedFat.dirty || form.monounsaturatedFat.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.monounsaturatedFat.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.carbohydrate.invalid && (form.carbohydrate.dirty || form.carbohydrate.touched)}"
+                    for="carbohydrate">{{'carbohydrate' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="carbohydrate" formControlName="carbohydrate"
+                            required name="carbohydrate" [ngClass]="{
+                                'is-invalid':form.carbohydrate.invalid && (form.carbohydrate.dirty || form.carbohydrate.touched),
+                                'is-valid':form.carbohydrate.valid && (form.carbohydrate.dirty || form.carbohydrate.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.carbohydrate.invalid && (form.carbohydrate.dirty || form.carbohydrate.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.carbohydrate.invalid && (form.carbohydrate.dirty || form.carbohydrate.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.carbohydrate.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.fiber.invalid && (form.fiber.dirty || form.fiber.touched)}"
+                    for="fiber">{{'fiber' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="fiber" formControlName="fiber" required
+                            name="fiber" [ngClass]="{
+                                'is-invalid':form.fiber.invalid && (form.fiber.dirty || form.fiber.touched),
+                                'is-valid':form.fiber.valid && (form.fiber.dirty || form.fiber.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.fiber.invalid && (form.fiber.dirty || form.fiber.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.fiber.invalid && (form.fiber.dirty || form.fiber.touched ) " class="text-danger">
+                        <div *ngIf="form.fiber.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.sugar.invalid && (form.sugar.dirty || form.sugar.touched)}"
+                    for="sugar">{{'sugar' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="sugar" formControlName="sugar" required
+                            name="sugar" [ngClass]="{
+                                'is-invalid':form.sugar.invalid && (form.sugar.dirty || form.sugar.touched),
+                                'is-valid':form.sugar.valid && (form.sugar.dirty || form.sugar.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.sugar.invalid && (form.sugar.dirty || form.sugar.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.sugar.invalid && (form.sugar.dirty || form.sugar.touched ) " class="text-danger">
+                        <div *ngIf="form.sugar.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
             </div>
 
 
             <div class="form-group row ">
-                <label class="col-md-4  col-label col-label-sm " for="servingSize">Serving size</label>
-                <div class=" col-md-8 input-group-sm input-group-sm">
-                    <input type="text" class="form-control" id="servingSize" [(ngModel)]="food.servingSize "
-                        name="servingSize">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.addedSugar.invalid && (form.addedSugar.dirty || form.addedSugar.touched)}"
+                    for="addedSugar">{{'addedSugar' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="addedSugar" formControlName="addedSugar" required
+                            name="addedSugar" [ngClass]="{
+                                'is-invalid':form.addedSugar.invalid && (form.addedSugar.dirty || form.addedSugar.touched),
+                                'is-valid':form.addedSugar.valid && (form.addedSugar.dirty || form.addedSugar.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.addedSugar.invalid && (form.addedSugar.dirty || form.addedSugar.touched)}"
+                                class="input-group-text">g</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.addedSugar.invalid && (form.addedSugar.dirty || form.addedSugar.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.addedSugar.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.sodium.invalid && (form.sodium.dirty || form.sodium.touched)}"
+                    for="sodium">{{'sodium' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="sodium" formControlName="sodium" required
+                            name="sodium" [ngClass]="{
+                                'is-invalid':form.sodium.invalid && (form.sodium.dirty || form.sodium.touched),
+                                'is-valid':form.sodium.valid && (form.sodium.dirty || form.sodium.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.sodium.invalid && (form.sodium.dirty || form.sodium.touched)}"
+                                class="input-group-text">mg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.sodium.invalid && (form.sodium.dirty || form.sodium.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.sodium.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.potassium.invalid && (form.potassium.dirty || form.potassium.touched)}"
+                    for="potassium">{{'potassium' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="potassium" formControlName="potassium" required
+                            name="potassium" [ngClass]="{
+                                'is-invalid':form.potassium.invalid && (form.potassium.dirty || form.potassium.touched),
+                                'is-valid':form.potassium.valid && (form.potassium.dirty || form.potassium.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.potassium.invalid && (form.potassium.dirty || form.potassium.touched)}"
+                                class="input-group-text">mg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.potassium.invalid && (form.potassium.dirty || form.potassium.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.potassium.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.vitaminD.invalid && (form.vitaminD.dirty || form.vitaminD.touched)}"
+                    for="vitaminD">{{'vitaminD' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="vitaminD" formControlName="vitaminD" required
+                            name="vitaminD" [ngClass]="{
+                                'is-invalid':form.vitaminD.invalid && (form.vitaminD.dirty || form.vitaminD.touched),
+                                'is-valid':form.vitaminD.valid && (form.vitaminD.dirty || form.vitaminD.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.vitaminD.invalid && (form.vitaminD.dirty || form.vitaminD.touched)}"
+                                class="input-group-text">mcg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.vitaminD.invalid && (form.vitaminD.dirty || form.vitaminD.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.vitaminD.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.vitaminA.invalid && (form.vitaminA.dirty || form.vitaminA.touched)}"
+                    for="vitaminA">{{'vitaminA' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="vitaminA" formControlName="vitaminA" required
+                            name="vitaminA" [ngClass]="{
+                                'is-invalid':form.vitaminA.invalid && (form.vitaminA.dirty || form.vitaminA.touched),
+                                'is-valid':form.vitaminA.valid && (form.vitaminA.dirty || form.vitaminA.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.vitaminA.invalid && (form.vitaminA.dirty || form.vitaminA.touched)}"
+                                class="input-group-text">mcg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.vitaminA.invalid && (form.vitaminA.dirty || form.vitaminA.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.vitaminA.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.vitaminC.invalid && (form.vitaminC.dirty || form.vitaminC.touched)}"
+                    for="vitaminC">{{'vitaminC' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="vitaminC" formControlName="vitaminC" required
+                            name="vitaminC" [ngClass]="{
+                                'is-invalid':form.vitaminC.invalid && (form.vitaminC.dirty || form.vitaminC.touched),
+                                'is-valid':form.vitaminC.valid && (form.vitaminC.dirty || form.vitaminC.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.vitaminC.invalid && (form.vitaminC.dirty || form.vitaminC.touched)}"
+                                class="input-group-text">mg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.vitaminC.invalid && (form.vitaminC.dirty || form.vitaminC.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.vitaminC.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.calcium.invalid && (form.calcium.dirty || form.calcium.touched)}"
+                    for="calcium">{{'calcium' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="calcium" formControlName="calcium" required
+                            name="calcium" [ngClass]="{
+                                'is-invalid':form.calcium.invalid && (form.calcium.dirty || form.calcium.touched),
+                                'is-valid':form.calcium.valid && (form.calcium.dirty || form.calcium.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.calcium.invalid && (form.calcium.dirty || form.calcium.touched)}"
+                                class="input-group-text">mg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.calcium.invalid && (form.calcium.dirty || form.calcium.touched ) "
+                        class="text-danger">
+                        <div *ngIf="form.calcium.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
+                </div>
+            </div>
+
+
+            <div class="form-group row ">
+                <label class="col-md-4  col-label col-label-sm "
+                    [ngClass]="{'text-danger':form.iron.invalid && (form.iron.dirty || form.iron.touched)}"
+                    for="iron">{{'iron' | titleCaseWord}} </label>
+                <div class=" col-md-8 ">
+                    <div class="input-group-sm input-group">
+                        <input type="number" class="form-control" id="iron" formControlName="iron" required name="iron"
+                            [ngClass]="{
+                                'is-invalid':form.iron.invalid && (form.iron.dirty || form.iron.touched),
+                                'is-valid':form.iron.valid && (form.iron.dirty || form.iron.touched)
+                            }">
+                        <div class="input-group-append ">
+                            <span
+                                [ngClass]="{
+                                'text-dark bg-warning border-warning':form.iron.invalid && (form.iron.dirty || form.iron.touched)}"
+                                class="input-group-text">mg</span>
+                        </div>
+                    </div>
+                    <small *ngIf="form.iron.invalid && (form.iron.dirty || form.iron.touched ) " class="text-danger">
+                        <div *ngIf="form.iron.errors">
+                            Value must be greater or equal than 0
+                        </div>
+                    </small>
                 </div>
             </div>
 
 
 
 
-            <div class="form-group row">
 
-                <label class=" col-md-4  col-label col-label-sm" for="calories">Calories</label>
-
-                <div class="input-group  col-md-8 input-group-sm">
-                    <input type="text" class="form-control" id="calories" required #calories="ngModel"
-                        [(ngModel)]="food.calories" name="calories"
-                        [ngClass]="{ 'is-invalid': formIsSumited && calories.errors }">
-                    <div class="input-group-append">
-                        <span class="input-group-text">kcal</span>
-                    </div>
-                    <div *ngIf="calories.invalid " class="invalid-feedback">
-                        <span *ngIf="calories.errors.required">Calories value is required</span>
-
-                    </div>
-                </div>
-            </div>
+            <button type="submit" [disabled]="!foodForm.valid" *ngIf="!editing" class="btn btn-sm btn-primary">
+              
+                <fa-icon class="mx-1" [icon]="faSave">
+                </fa-icon>Save
+            </button>
+            <button type="submit" [disabled]="!foodForm.valid" *ngIf="editing" class="btn btn-sm btn-primary">
+              
+                <fa-icon class="mx-1" [icon]="faSave">
+                </fa-icon>Save changes
+            </button>
 
 
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="protein">Protein</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="protein" [(ngModel)]="food.protein" name="protein">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="fat">Fat</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="fat" [(ngModel)]="food.fat" name="fat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="transFat">Trans Fat</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="transFat" [(ngModel)]="food.transFat" name="transFat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="saturatedFat">Saturated Fat</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="saturatedFat" [(ngModel)]="food.saturatedFat"
-                        name="saturatedFat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="polyFat">Polyunsaturated Fat</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="polyFat" [(ngModel)]="food.polyunsaturatedFat"
-                        name="polyFat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="monoFat">Monounsaturated Fat</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="monoFat" [(ngModel)]="food.monounsaturatedFat"
-                        name="monoFat">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="carbohydrate">Carbohydrate</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="carbohydrate" [(ngModel)]="food.carbohydrate"
-                        name="carbohydrate">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="fiber">Fiber</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="fiber" [(ngModel)]="food.fiber" name="fiber">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="totalSugar">Sugar</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="totalSugar" [(ngModel)]="food.sugar" name="totalSugar">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="addedSugar">Added Sugar</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="addedSugar" [(ngModel)]="food.addedSugar"
-                        name="addedSugar">
-                    <div class="input-group-append">
-                        <span class="input-group-text">g</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="sodium">Sodiumn</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="sodium" [(ngModel)]="food.sodium" name="sodium">
-                    <div class="input-group-append">
-                        <span class="input-group-text">mg</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="potassium">Potassium</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="potassium" [(ngModel)]="food.potassium"
-                        name="potassium">
-                    <div class="input-group-append">
-                        <span class="input-group-text">mg</span>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="vitaminD">Vitamin D</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="vitaminD" [(ngModel)]="food.vitaminD" name="vitaminD">
-                    <div class="input-group-append">
-                        <span class="input-group-text">mcg</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="vitaminA">Vitamin A</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="vitaminA" [(ngModel)]="food.vitaminA" name="vitaminA">
-                    <div class="input-group-append">
-                        <span class="input-group-text">mcg</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="vitaminC">Vitamin C</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="vitaminC" [(ngModel)]="food.vitaminC" name="vitaminC">
-                    <div class="input-group-append">
-                        <span class="input-group-text">mcg</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="calcium">Calcium</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="calcium" [(ngModel)]="food.calcium" name="calcium">
-                    <div class="input-group-append">
-                        <span class="input-group-text">mg</span>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class=" col-md-4  col-label col-label-sm" for="iron">Iron</label>
-                <div class=" col-md-8 input-group-sm input-group">
-                    <input type="text" class="form-control" id="iron" [(ngModel)]="food.iron" name="iron">
-                    <div class="input-group-append">
-                        <span class="input-group-text">mg</span>
-                    </div>
-                </div>
-            </div>
-            <button (click)="saveFood()" class="btn btn-success">Save</button>
         </form>
+
+
     </div>
 </div>

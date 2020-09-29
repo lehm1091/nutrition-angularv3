@@ -61,3 +61,29 @@ $grid-gutter-width: 10px ;
   
 
 }
+
+.social-icon {
+
+    height: 3.5rem;
+    width: 3.5rem;
+    background-color:$warning;
+    border-radius: 100%;
+    font-size: 1.5rem;
+    margin-right: 1.5rem;
+  }
+
+ .social-icon:hover {
+    background-color:$secondary;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

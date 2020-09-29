@@ -98,7 +98,7 @@ export class FoodComparsionComponent implements OnInit, OnChanges {
         }
       );
 
-      
+
 
 
     } else {
@@ -129,6 +129,9 @@ export class FoodComparsionComponent implements OnInit, OnChanges {
 
 
   public isMax(value: number, variableName: string) {
+    if (value == 0) {
+      return false;
+    }
     const values = this.foods.map(food => food[variableName]);
     const max = Math.max(...values);
     if (value >= max) {
