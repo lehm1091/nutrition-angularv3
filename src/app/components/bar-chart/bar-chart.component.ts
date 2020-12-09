@@ -38,7 +38,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     plugins: {
       datalabels: {
         color: 'white',
-        display: false,
+        display: true,
         font: {
           weight: 'bold'
         },
